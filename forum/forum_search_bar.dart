@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class ForumSearchBar extends StatelessWidget {
   final Function onSearch;
+  final Function onCancel;
   final TextEditingController searchKey = TextEditingController();
 
-  ForumSearchBar({@required this.onSearch});
+  ForumSearchBar({@required this.onSearch, this.onCancel});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,10 @@ class ForumSearchBar extends StatelessWidget {
         controller: searchKey,
         onFieldSubmitted: onSearch,
         decoration: InputDecoration(
+          prefixIcon: IconButton(
+            icon: Icon(Icons.close, color: Colors.redAccent),
+            onPressed: onCancel,
+          ),
           filled: true,
           fillColor: Colors.white,
 
