@@ -18,11 +18,17 @@ class ForumSearchBar extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          suffixIcon: Icon(Icons.search),
+
           /// todo: create definition inside `firelamp_widgets`
           contentPadding: EdgeInsets.symmetric(horizontal: 18),
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              onSearch(searchKey.text);
+            },
           ),
         ),
       ),
