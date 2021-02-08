@@ -45,6 +45,7 @@ class _ForumSearchBarState extends State<ForumSearchBar> {
       /// todo: create definition inside `firelamp_widgets`
       padding: EdgeInsets.all(14),
       child: TextFormField(
+        autofocus: false,
         controller: searchKey,
         onFieldSubmitted: widget.onSearch,
         decoration: InputDecoration(
