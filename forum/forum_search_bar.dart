@@ -34,6 +34,7 @@ class _ForumSearchBarState extends State<ForumSearchBar> {
   @override
   void dispose() {
     searchKey.removeListener(_onSearchChanged);
+    searchKey.clear();
     searchKey.dispose();
     debounce?.cancel();
     super.dispose();
