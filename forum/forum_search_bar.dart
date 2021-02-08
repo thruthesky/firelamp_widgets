@@ -17,23 +17,8 @@ class _ForumSearchBarState extends State<ForumSearchBar> {
   final searchKey = new TextEditingController();
   Timer debounce;
 
-  _onSearchChanged() {
-    if (debounce?.isActive ?? false) debounce.cancel();
-    debounce = Timer(const Duration(milliseconds: 500), () {
-      print('searchChanged');
-      widget.onSearch(searchKey.text);
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    searchKey.addListener(_onSearchChanged);
-  }
-
   @override
   void dispose() {
-    searchKey.removeListener(_onSearchChanged);
     searchKey.clear();
     searchKey.dispose();
     debounce?.cancel();
@@ -45,10 +30,17 @@ class _ForumSearchBarState extends State<ForumSearchBar> {
     return Padding(
       /// todo: create definition inside `firelamp_widgets`
       padding: EdgeInsets.all(14),
-      child: TextFormField(
+      child: TextField(
         autofocus: false,
         controller: searchKey,
-        onFieldSubmitted: widget.onSearch,
+        onChanged: (value) {
+          if (debounce?.isActive ?? false) debounce.cancel();
+          debounce = Timer(const Duration(milliseconds: 500), () {
+            print('searchChanged');
+            widget.onSearch(searchKey.text);
+          });
+        },
+        // onFieldSubmitted: widget.onSearch,
         decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: Icon(Icons.close, color: Colors.redAccent),
