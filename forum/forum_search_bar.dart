@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ForumSearchBar extends StatefulWidget {
   final Function onSearch;
@@ -14,15 +15,24 @@ class ForumSearchBar extends StatefulWidget {
 }
 
 class _ForumSearchBarState extends State<ForumSearchBar> {
-  final searchKey = new TextEditingController();
-  Timer debounce;
+  PublishSubject<String> input = PublishSubject();
+  StreamSubscription subscription;
+  String searchKey;
+
+  @override
+  void initState() {
+    super.initState();
+    subscription =
+        input.debounceTime(Duration(milliseconds: 500)).distinct((a, b) => a == b).listen((value) {
+      searchKey = value;
+      widget.onSearch(value);
+    });
+  }
 
   @override
   void dispose() {
-    searchKey.clear();
-    searchKey.dispose();
-    debounce?.cancel();
     super.dispose();
+    subscription.cancel();
   }
 
   @override
@@ -32,14 +42,7 @@ class _ForumSearchBarState extends State<ForumSearchBar> {
       padding: EdgeInsets.all(14),
       child: TextField(
         autofocus: false,
-        controller: searchKey,
-        onChanged: (value) {
-          if (debounce?.isActive ?? false) debounce.cancel();
-          debounce = Timer(const Duration(milliseconds: 500), () {
-            print('searchChanged');
-            widget.onSearch(searchKey.text);
-          });
-        },
+        onChanged: (value) => input.add(value),
         // onFieldSubmitted: widget.onSearch,
         decoration: InputDecoration(
           prefixIcon: IconButton(
@@ -56,9 +59,7 @@ class _ForumSearchBarState extends State<ForumSearchBar> {
           ),
           suffixIcon: IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {
-              widget.onSearch(searchKey.text);
-            },
+            onPressed: () => widget.onSearch(searchKey),
           ),
         ),
       ),
