@@ -1,12 +1,43 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ForumSearchBar extends StatelessWidget {
+class ForumSearchBar extends StatefulWidget {
   final Function onSearch;
   final Function onCancel;
-  final TextEditingController searchKey = TextEditingController();
 
   ForumSearchBar({@required this.onSearch, this.onCancel});
+
+  @override
+  _ForumSearchBarState createState() => _ForumSearchBarState();
+}
+
+class _ForumSearchBarState extends State<ForumSearchBar> {
+  final searchKey = new TextEditingController();
+  Timer debounce;
+
+  _onSearchChanged() {
+    if (debounce?.isActive ?? false) debounce.cancel();
+    debounce = Timer(const Duration(milliseconds: 500), () {
+      print('searchChanged');
+      widget.onSearch(searchKey.text);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    searchKey.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    searchKey.removeListener(_onSearchChanged);
+    searchKey.dispose();
+    debounce?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +46,11 @@ class ForumSearchBar extends StatelessWidget {
       padding: EdgeInsets.all(14),
       child: TextFormField(
         controller: searchKey,
-        onFieldSubmitted: onSearch,
+        onFieldSubmitted: widget.onSearch,
         decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: Icon(Icons.close, color: Colors.redAccent),
-            onPressed: onCancel,
+            onPressed: widget.onCancel,
           ),
           filled: true,
           fillColor: Colors.white,
@@ -32,7 +63,7 @@ class ForumSearchBar extends StatelessWidget {
           suffixIcon: IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              onSearch(searchKey.text);
+              widget.onSearch(searchKey.text);
             },
           ),
         ),
