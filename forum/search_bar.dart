@@ -78,7 +78,7 @@ class SearchBar extends StatefulWidget {
   });
   final bool display;
   final String category;
-  final List<dynamic> categories;
+  final String categories;
   final Function onCategoryChange;
   final Function onSearch;
   final Function onCancel;
@@ -116,7 +116,7 @@ class _SearchBarState extends State<SearchBar> {
       children: [
         DropdownButton<String>(
           value: widget.category,
-          items: widget.categories.map((cat) {
+          items: widget.categories.split(',').map((cat) {
             return DropdownMenuItem<String>(
               value: cat,
               child: Text('$cat'),
