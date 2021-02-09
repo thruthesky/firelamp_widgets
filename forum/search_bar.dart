@@ -70,18 +70,23 @@ import 'package:rxdart/rxdart.dart';
 class SearchBar extends StatefulWidget {
   SearchBar({
     @required this.display,
-    @required this.category,
+    // @required this.category,
     @required this.categories,
     @required this.onCategoryChange,
     @required this.onSearch,
     @required this.onCancel,
+    this.searchOnInputChange = true,
   });
   final bool display;
-  final String category;
+  // final String category;
   final String categories;
   final Function onCategoryChange;
   final Function onSearch;
   final Function onCancel;
+
+  /// When `true`, search will work everytime the text input changes.
+  /// If `false`, the user must click the search icon button to search.
+  final bool searchOnInputChange;
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -106,7 +111,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   void dispose() {
     super.dispose();
-    subscription.cancel();
+    subscription?.cancel();
   }
 
   @override
@@ -115,7 +120,7 @@ class _SearchBarState extends State<SearchBar> {
     return Column(
       children: [
         DropdownButton<String>(
-          value: widget.category,
+          value: selected ?? widget.categories.split(',').first,
           items: widget.categories.split(',').map((cat) {
             return DropdownMenuItem<String>(
               value: cat,
@@ -130,30 +135,32 @@ class _SearchBarState extends State<SearchBar> {
         ),
         // ForumSearchBar(onSearch: widget.onSearch, onCancel: widget.onCancel),
         Padding(
-            padding: EdgeInsets.all(10),
-            child: TextField(
-              autofocus: false,
-              onChanged: (value) => input.add(value),
-              // onFieldSubmitted: widget.onSearch,
-              decoration: InputDecoration(
-                prefixIcon: IconButton(
-                  icon: Icon(Icons.close, color: Colors.redAccent),
-                  onPressed: widget.onCancel,
-                ),
-                filled: true,
-                fillColor: Colors.white,
-
-                /// todo: create definition inside `firelamp_widgets`
-                contentPadding: EdgeInsets.symmetric(horizontal: 18),
-                border: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
-                ),
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () => widget.onSearch(searchKey),
-                ),
+          padding: EdgeInsets.all(10),
+          child: TextField(
+            autofocus: false,
+            onChanged: widget.searchOnInputChange
+                ? (value) => input.add(value)
+                : (value) => searchKey = value,
+            decoration: InputDecoration(
+              prefixIcon: IconButton(
+                icon: Icon(Icons.close, color: Colors.redAccent),
+                onPressed: widget.onCancel,
               ),
-            ))
+              filled: true,
+              fillColor: Colors.white,
+
+              /// todo: create definition inside `firelamp_widgets`
+              contentPadding: EdgeInsets.symmetric(horizontal: 18),
+              border: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () => widget.onSearch(searchKey),
+              ),
+            ),
+          ),
+        )
       ],
     );
   }
