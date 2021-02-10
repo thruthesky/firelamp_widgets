@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 class CommentMeta extends StatelessWidget {
   final ApiComment comment;
+
+  /// Widget to show as an avatar when it is not null.
   final Widget avatar;
 
   CommentMeta(this.comment, {this.avatar});
