@@ -40,10 +40,18 @@ class PostMeta extends StatelessWidget {
                 Icon(
                   Icons.circle,
                   size: Space.xxs,
-                  color: Colors.blueAccent,
+                  color: Colors.greenAccent,
                 ),
                 SizedBox(width: Space.xs),
                 Text('${post.category}'),
+                SizedBox(width: Space.xs),
+                Icon(
+                  Icons.circle,
+                  size: Space.xxs,
+                  color: Colors.redAccent,
+                ),
+                SizedBox(width: Space.xs),
+                Text('${post.id}'),
               ]),
             ],
           )
