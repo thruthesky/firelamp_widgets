@@ -36,6 +36,14 @@ class PostMeta extends StatelessWidget {
                 ),
                 SizedBox(width: Space.xs),
                 Text('${post.shortDateTime}'),
+                SizedBox(width: Space.xs),
+                Icon(
+                  Icons.circle,
+                  size: Space.xxs,
+                  color: Colors.blueAccent,
+                ),
+                SizedBox(width: Space.xs),
+                Text('${post.category}'),
               ]),
             ],
           )

@@ -1,3 +1,4 @@
+import 'package:dalgona/firelamp_widgets/forum/popup_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
@@ -103,29 +104,22 @@ class _CommentViewState extends State<CommentView> {
                 ),
               Spacer(),
               if (widget.comment.isMine)
-                PopupMenuButton<String>(
-                  shape:
-                      RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  itemBuilder: (context) => [
-                    PopupMenuItem(
-                        child: Row(children: [
-                          Icon(Icons.edit, size: Space.sm, color: Colors.greenAccent),
-                          SizedBox(width: Space.xs),
-                          Text('Edit')
-                        ]),
-                        value: 'edit'),
-                    PopupMenuItem(
-                        child: Row(children: [
-                          Icon(Icons.delete, size: Space.sm, color: Colors.redAccent),
-                          SizedBox(width: Space.xs),
-                          Text('Delete')
-                        ]),
-                        value: 'delete')
-                  ],
-                  icon: Icon(Icons.more_vert),
-                  offset: Offset(10.0, 10.0),
-                  onSelected: onPopupMenuItemSelected,
-                ),
+                PopUpButton(items: [
+                  PopupMenuItem(
+                      child: Row(children: [
+                        Icon(Icons.edit, size: Space.sm, color: Colors.greenAccent),
+                        SizedBox(width: Space.xs),
+                        Text('Edit')
+                      ]),
+                      value: 'edit'),
+                  PopupMenuItem(
+                      child: Row(children: [
+                        Icon(Icons.delete, size: Space.sm, color: Colors.redAccent),
+                        SizedBox(width: Space.xs),
+                        Text('Delete')
+                      ]),
+                      value: 'delete')
+                ], onSelected: onPopupMenuItemSelected)
             ]),
           ],
           if (widget.comment.mode == CommentMode.reply)
