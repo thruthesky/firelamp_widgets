@@ -7,7 +7,6 @@ import 'package:rxdart/rxdart.dart';
 class SearchBar extends StatefulWidget {
   SearchBar({
     @required this.display,
-    // @required this.category,
     @required this.categories,
     @required this.onCategoryChange,
     @required this.onSearch,

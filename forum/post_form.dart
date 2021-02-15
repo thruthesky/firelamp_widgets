@@ -35,6 +35,44 @@ class _PostFormState extends State<PostForm> {
     ),
   );
 
+  onImageIconTap() async {
+    try {
+      final file =
+          await imageUpload(quality: 95, onProgress: (p) => setState(() => percentage = p));
+      // print('file upload success: $file');
+      percentage = 0;
+      post.files.add(file);
+      setState(() => null);
+    } catch (e) {
+      if (e == ERROR_IMAGE_NOT_SELECTED) {
+      } else {
+        error(e);
+      }
+    }
+  }
+
+  onFormSubmit() async {
+    if (loading) return;
+    setState(() => loading = true);
+
+    if (Api.instance.notLoggedIn) return error("Login First");
+    try {
+      final editedPost = await Api.instance.editPost(
+        id: post.id,
+        category: widget.forum.category,
+        title: title.text,
+        content: content.text,
+        files: post.files,
+      );
+      widget.forum.insertOrUpdatePost(editedPost);
+      setState(() => loading = false);
+      // reset();
+    } catch (e) {
+      setState(() => loading = false);
+      error(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -82,21 +120,7 @@ class _PostFormState extends State<PostForm> {
                 /// Upload Button
                 IconButton(
                   icon: Icon(Icons.camera_alt),
-                  onPressed: () async {
-                    try {
-                      final file = await imageUpload(
-                          quality: 95, onProgress: (p) => setState(() => percentage = p));
-                      // print('file upload success: $file');
-                      percentage = 0;
-                      post.files.add(file);
-                      setState(() => null);
-                    } catch (e) {
-                      if (e == ERROR_IMAGE_NOT_SELECTED) {
-                      } else {
-                        error(e);
-                      }
-                    }
-                  },
+                  onPressed: onImageIconTap,
                 ),
                 if (percentage > 0)
                   Expanded(
@@ -113,27 +137,7 @@ class _PostFormState extends State<PostForm> {
                       FlatButton(
                         child: loading ? Spinner() : Text('Submit'),
                         color: loading ? Colors.grey : Colors.green[300],
-                        onPressed: () async {
-                          if (loading) return;
-                          setState(() => loading = true);
-
-                          if (Api.instance.notLoggedIn) return error("Login First");
-                          try {
-                            final editedPost = await Api.instance.editPost(
-                              id: post.id,
-                              category: forum.category,
-                              title: title.text,
-                              content: content.text,
-                              files: post.files,
-                            );
-                            forum.insertOrUpdatePost(editedPost);
-                            setState(() => loading = false);
-                            // reset();
-                          } catch (e) {
-                            setState(() => loading = false);
-                            error(e);
-                          }
-                        },
+                        onPressed: onFormSubmit,
                       ),
                     ],
                   ),

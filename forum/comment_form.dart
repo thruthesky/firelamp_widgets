@@ -39,6 +39,54 @@ class _CommentFormState extends State<CommentForm> {
   bool get canSubmit => content.text != '' || comment.files.isNotEmpty;
   double percentage = 0;
 
+  // file upload
+  onImageIconPressed() async {
+    try {
+      final file =
+          await imageUpload(quality: 95, onProgress: (p) => setState(() => percentage = p));
+      // print('file upload success: $file');
+      percentage = 0;
+      comment.files.add(file);
+      setState(() => null);
+    } catch (e) {
+      if (e == ERROR_IMAGE_NOT_SELECTED) {
+      } else {
+        error(e);
+      }
+    }
+  }
+
+  // form submit
+  onFormSubmit() async {
+    if (loading) return;
+    setState(() => loading = true);
+    FocusScope.of(context).requestFocus(FocusNode());
+    if (Api.instance.notLoggedIn) return error("Login First");
+
+    try {
+      final editedComment = await Api.instance.editComment(
+        content: content.text,
+        parent: widget.parent,
+        comment: comment,
+        post: widget.post,
+        files: comment.files,
+      );
+
+      widget.post.insertOrUpdateComment(editedComment);
+      content.text = '';
+      comment.files = [];
+      loading = false;
+      if (widget.parent != null) widget.parent.mode = CommentMode.none;
+      if (widget.comment != null) comment.mode = CommentMode.none;
+      setState(() => null);
+      widget.forum.render();
+      // print('editeComment..: $editedComment');
+    } catch (e) {
+      setState(() => loading = false);
+      error(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -58,21 +106,7 @@ class _CommentFormState extends State<CommentForm> {
               IconButton(
                 alignment: Alignment.center,
                 icon: Icon(Icons.camera_alt),
-                onPressed: () async {
-                  try {
-                    final file = await imageUpload(
-                        quality: 95, onProgress: (p) => setState(() => percentage = p));
-                    // print('file upload success: $file');
-                    percentage = 0;
-                    comment.files.add(file);
-                    setState(() => null);
-                  } catch (e) {
-                    if (e == ERROR_IMAGE_NOT_SELECTED) {
-                    } else {
-                      error(e);
-                    }
-                  }
-                },
+                onPressed: onImageIconPressed,
               ),
               Expanded(
                 child: TextFormField(
@@ -95,35 +129,7 @@ class _CommentFormState extends State<CommentForm> {
                 IconButton(
                   alignment: Alignment.center,
                   icon: Icon(Icons.send),
-                  onPressed: () async {
-                    if (loading) return;
-                    setState(() => loading = true);
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    if (Api.instance.notLoggedIn) return error("Login First");
-
-                    try {
-                      final editedComment = await Api.instance.editComment(
-                        content: content.text,
-                        parent: widget.parent,
-                        comment: comment,
-                        post: widget.post,
-                        files: comment.files,
-                      );
-
-                      widget.post.insertOrUpdateComment(editedComment);
-                      content.text = '';
-                      comment.files = [];
-                      loading = false;
-                      if (widget.parent != null) widget.parent.mode = CommentMode.none;
-                      if (widget.comment != null) comment.mode = CommentMode.none;
-                      setState(() => null);
-                      widget.forum.render();
-                      // print('editeComment..: $editedComment');
-                    } catch (e) {
-                      setState(() => loading = false);
-                      error(e);
-                    }
-                  },
+                  onPressed: onFormSubmit,
                 ),
             ],
           ),

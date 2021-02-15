@@ -59,7 +59,6 @@ class _CommentViewState extends State<CommentView> {
       margin: EdgeInsets.only(top: Space.sm, left: Space.sm * (widget.comment.depth - 1)),
       padding: EdgeInsets.all(Space.sm),
       decoration: BoxDecoration(
-        // color: Colors.blueGrey[50],
         color: Color(0x338fb1cc),
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
@@ -87,8 +86,9 @@ class _CommentViewState extends State<CommentView> {
                   });
                 },
               ),
-                    if (widget.forum.showLike) VoteButton(postOrComment: widget.comment),
-                    if (widget.forum.showDislike) VoteButton(postOrComment: widget.comment, isLike: false),
+              if (widget.forum.showLike) VoteButton(postOrComment: widget.comment),
+              if (widget.forum.showDislike)
+                VoteButton(postOrComment: widget.comment, isLike: false),
               Spacer(),
               if (widget.comment.isMine)
                 PopUpButton(items: [
@@ -116,13 +116,12 @@ class _CommentViewState extends State<CommentView> {
               post: widget.post,
               forum: widget.forum,
             ),
-          if (widget.comment.mode == CommentMode.edit)
+          if (widget.comment.mode == CommentMode.edit) ...[
             CommentForm(
               comment: widget.comment,
               post: widget.post,
               forum: widget.forum,
             ),
-          if (widget.comment.mode == CommentMode.edit) ...[
             IconButton(
               icon: Icon(Icons.close, color: Colors.redAccent),
               onPressed: () {
