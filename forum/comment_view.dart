@@ -1,4 +1,5 @@
 import 'package:dalgona/firelamp_widgets/forum/popup_button.dart';
+import 'package:dalgona/firelamp_widgets/forum/vote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
@@ -86,22 +87,8 @@ class _CommentViewState extends State<CommentView> {
                   });
                 },
               ),
-              if (widget.forum.showLike)
-                TextButton(
-                  child: Text('Like'),
-                  onPressed: () {
-                    // TODO: VOTE
-                    // print('TODO: LIKE');
-                  },
-                ),
-              if (widget.forum.showDislike)
-                TextButton(
-                  child: Text('Dislike'),
-                  onPressed: () {
-                    // TODO: VOTE
-                    // print('TODO: DISLIKE');
-                  },
-                ),
+                    if (widget.forum.showLike) VoteButton(postOrComment: widget.comment),
+                    if (widget.forum.showDislike) VoteButton(postOrComment: widget.comment, isLike: false),
               Spacer(),
               if (widget.comment.isMine)
                 PopUpButton(items: [
