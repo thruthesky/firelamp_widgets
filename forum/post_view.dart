@@ -15,13 +15,13 @@ class PostView extends StatefulWidget {
     this.i,
     this.forum,
     this.actions,
-    this.onTitlePressed,
+    this.onTap,
   }) : super(key: key);
 
   final ApiForum forum;
   final int i;
   final List<Widget> actions;
-  final Function onTitlePressed;
+  final Function onTap;
 
   @override
   _PostViewState createState() => _PostViewState();
@@ -39,28 +39,28 @@ class _PostViewState extends State<PostView> {
       padding: EdgeInsets.all(Space.sm),
       decoration: BoxDecoration(
         color: Colors.grey[100],
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PostMeta(
-            post,
-            avatar: UserAvatar(post.featuredImageThumbnailUrl, size: 40),
-            redirectOnTap: widget.onTitlePressed,
+          GestureDetector(
+            onTap: widget.onTap,
+            child: Row(
+              children: [
+                UserAvatar(post.featuredImageThumbnailUrl, size: 40),
+                SizedBox(width: Space.xs),
+                PostMeta(post),
+              ],
+            ),
           ),
           PostContent(post),
           FilesView(postOrComment: post),
           Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: widget.actions,
-          ),
-          CommentForm(
-            post: post,
-            forum: forum,
-            comment: ApiComment(),
-          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
+          CommentForm(post: post, forum: forum, comment: ApiComment()),
           CommentList(post: post, forum: forum),
         ],
       ),

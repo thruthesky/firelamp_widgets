@@ -3,60 +3,45 @@ import 'package:firelamp/firelamp.dart';
 import 'package:flutter/material.dart';
 
 class PostMeta extends StatelessWidget {
-  PostMeta(this.post, {this.avatar, this.redirectOnTap});
+  PostMeta(this.post);
   final ApiPost post;
-
-  /// Widget to show as an avatar when it is not null.
-  final Widget avatar;
-
-  /// Callback to execute when this widget is tapped.
-  final Function redirectOnTap;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: redirectOnTap,
-      child: Row(
-        children: [
-          if (avatar != null) avatar,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('${post.authorName}',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: Space.sm,
+            )),
+        Row(children: [
+          Icon(
+            Icons.circle,
+            size: Space.xxs,
+            color: Colors.blueAccent,
+          ),
           SizedBox(width: Space.xs),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('${post.authorName}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: Space.sm,
-                  )),
-              Row(children: [
-                Icon(
-                  Icons.circle,
-                  size: Space.xxs,
-                  color: Colors.blueAccent,
-                ),
-                SizedBox(width: Space.xs),
-                Text('${post.shortDateTime}'),
-                SizedBox(width: Space.xs),
-                Icon(
-                  Icons.circle,
-                  size: Space.xxs,
-                  color: Colors.greenAccent,
-                ),
-                SizedBox(width: Space.xs),
-                Text('${post.category}'),
-                SizedBox(width: Space.xs),
-                Icon(
-                  Icons.circle,
-                  size: Space.xxs,
-                  color: Colors.redAccent,
-                ),
-                SizedBox(width: Space.xs),
-                Text('${post.id}'),
-              ]),
-            ],
-          )
-        ],
-      ),
+          Text('${post.shortDateTime}'),
+          SizedBox(width: Space.xs),
+          Icon(
+            Icons.circle,
+            size: Space.xxs,
+            color: Colors.greenAccent,
+          ),
+          SizedBox(width: Space.xs),
+          Text('${post.category}'),
+          SizedBox(width: Space.xs),
+          Icon(
+            Icons.circle,
+            size: Space.xxs,
+            color: Colors.redAccent,
+          ),
+          SizedBox(width: Space.xs),
+          Text('${post.id}'),
+        ]),
+      ],
     );
   }
 }
