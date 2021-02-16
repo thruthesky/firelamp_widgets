@@ -15,13 +15,11 @@ class PostView extends StatefulWidget {
     this.i,
     this.forum,
     this.actions,
-    this.onTap,
   }) : super(key: key);
 
   final ApiForum forum;
   final int i;
   final List<Widget> actions;
-  final Function onTap;
 
   @override
   _PostViewState createState() => _PostViewState();
@@ -46,15 +44,12 @@ class _PostViewState extends State<PostView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            onTap: widget.onTap,
-            child: Row(
-              children: [
-                UserAvatar(post.featuredImageThumbnailUrl, size: 40),
-                SizedBox(width: Space.xs),
-                PostMeta(post),
-              ],
-            ),
+          Row(
+            children: [
+              UserAvatar(post.featuredImageThumbnailUrl, size: 40),
+              SizedBox(width: Space.xs),
+              PostMeta(post),
+            ],
           ),
           PostContent(post),
           FilesView(postOrComment: post),
