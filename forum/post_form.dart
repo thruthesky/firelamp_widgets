@@ -1,10 +1,10 @@
+import 'package:dalgona/firelamp_widgets/functions.dart';
 import 'package:dalgona/firelamp_widgets/widgets/spinner.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 
 import 'package:dalgona/firelamp_widgets/defines.dart';
-import 'package:dalgona/firelamp_widgets/functions.dart';
 import 'package:dalgona/firelamp_widgets/forum/files_form.dart';
 
 class PostForm extends StatefulWidget {
@@ -34,11 +34,9 @@ class _PostFormState extends State<PostForm> {
     ),
   );
 
-
   onImageIconTap() async {
     try {
-      final file =
-          await imageUpload(quality: 95, onProgress: (p) => setState(() => percentage = p));
+      final file = await imageUpload(quality: 95, onProgress: (p) => setState(() => percentage = p));
       // print('file upload success: $file');
       percentage = 0;
       post.files.add(file);

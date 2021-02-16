@@ -3,7 +3,6 @@ import 'package:dalgona/firelamp_widgets/forum/vote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
-import 'package:dalgona/firelamp_widgets/functions.dart';
 import 'package:dalgona/firelamp_widgets/forum/comment_meta.dart';
 import 'package:dalgona/firelamp_widgets/forum/comment_form.dart';
 

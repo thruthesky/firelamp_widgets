@@ -1,20 +1,9 @@
-import 'dart:io';
-
-import 'package:image_picker/image_picker.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-
 import 'package:firelamp/firelamp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/// Upload an image.
-///
-/// It can be used for upload photos for a post, comment, gallery, or even user profile photo.
-/// ```dart
-/// ApiFile file = await app.imageUpload(onProgress: onProgress);
-/// post.files.add(file);
-/// final edited = await api.editPost(id: post.id, files: post.files);
-/// ```
+import 'package:image_picker/image_picker.dart';
+
 Future<ApiFile> imageUpload({int quality = 90, Function onProgress}) async {
   /// Ask user
   final re = await Get.bottomSheet(
@@ -44,19 +33,5 @@ Future<ApiFile> imageUpload({int quality = 90, Function onProgress}) async {
   );
   if (re == null) throw ERROR_IMAGE_NOT_SELECTED;
 
-  /// Pick image
-  final picker = ImagePicker();
-
-  final pickedFile = await picker.getImage(source: re);
-  if (pickedFile == null) throw ERROR_IMAGE_NOT_SELECTED;
-
-  String localFile = await getAbsoluteTemporaryFilePath(getRandomString() + '.jpeg');
-  File file = await FlutterImageCompress.compressAndGetFile(
-    pickedFile.path, // source file
-    localFile, // target file. Overwrite the source with compressed.
-    quality: quality,
-  );
-
-  /// Upload
-  return await Api.instance.uploadFile(file: file, onProgress: onProgress);
+  return Api.instance.takeUploadFile(source: re, quality: quality, onProgress: onProgress);
 }

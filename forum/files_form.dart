@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 
 import 'package:dalgona/firelamp_widgets/defines.dart';
-import 'package:dalgona/firelamp_widgets/functions.dart';
 
 class FilesForm extends StatefulWidget {
   const FilesForm({
