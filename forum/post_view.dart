@@ -4,7 +4,6 @@ import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:dalgona/firelamp_widgets/forum/comment_form.dart';
 import 'package:dalgona/firelamp_widgets/forum/comment_list.dart';
-import 'package:dalgona/firelamp_widgets/forum/post_content.dart';
 import 'package:dalgona/firelamp_widgets/forum/post_meta.dart';
 import 'package:dalgona/firelamp_widgets/forum/files_view.dart';
 import 'package:dalgona/firelamp_widgets/user/user_avatar.dart';
@@ -51,7 +50,19 @@ class _PostViewState extends State<PostView> {
               PostMeta(post),
             ],
           ),
-          PostContent(post),
+          Padding(
+            padding: EdgeInsets.only(top: Space.sm),
+            child: SelectableText('${post.postTitle}',
+                style: TextStyle(
+                  fontSize: Space.md,
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.w600,
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: Space.sm),
+            child: SelectableText('${post.postContent}', style: TextStyle(fontSize: Space.sm)),
+          ),
           FilesView(postOrComment: post),
           Divider(),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),

@@ -1,4 +1,4 @@
-import 'package:dalgona/firelamp_widgets/forum/popup_button.dart';
+import 'package:dalgona/firelamp_widgets/widgets/popup_button.dart';
 import 'package:dalgona/firelamp_widgets/forum/vote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
@@ -111,17 +111,12 @@ class _CommentViewState extends State<CommentView> {
           ],
           if (widget.comment.mode == CommentMode.reply)
             CommentForm(
-              parent: widget.comment,
-              comment: ApiComment(),
-              post: widget.post,
-              forum: widget.forum,
-            ),
+                parent: widget.comment,
+                comment: ApiComment(),
+                post: widget.post,
+                forum: widget.forum),
           if (widget.comment.mode == CommentMode.edit) ...[
-            CommentForm(
-              comment: widget.comment,
-              post: widget.post,
-              forum: widget.forum,
-            ),
+            CommentForm(comment: widget.comment, post: widget.post, forum: widget.forum),
             IconButton(
               icon: Icon(Icons.close, color: Colors.redAccent),
               onPressed: () {
