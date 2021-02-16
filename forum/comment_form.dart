@@ -51,7 +51,7 @@ class _CommentFormState extends State<CommentForm> {
     } catch (e) {
       if (e == ERROR_IMAGE_NOT_SELECTED) {
       } else {
-        error(e);
+       onError(e);
       }
     }
   }
@@ -61,7 +61,7 @@ class _CommentFormState extends State<CommentForm> {
     if (loading) return;
     setState(() => loading = true);
     FocusScope.of(context).requestFocus(FocusNode());
-    if (Api.instance.notLoggedIn) return error("Login First");
+    if (Api.instance.notLoggedIn) return onError("Login First");
 
     try {
       final editedComment = await Api.instance.editComment(
@@ -83,7 +83,7 @@ class _CommentFormState extends State<CommentForm> {
       // print('editeComment..: $editedComment');
     } catch (e) {
       setState(() => loading = false);
-      error(e);
+      onError(e);
     }
   }
 

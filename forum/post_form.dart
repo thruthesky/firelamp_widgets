@@ -46,7 +46,7 @@ class _PostFormState extends State<PostForm> {
     } catch (e) {
       if (e == ERROR_IMAGE_NOT_SELECTED) {
       } else {
-        error(e);
+        onError(e);
       }
     }
   }
@@ -55,7 +55,7 @@ class _PostFormState extends State<PostForm> {
     if (loading) return;
     setState(() => loading = true);
 
-    if (Api.instance.notLoggedIn) return error("Login First");
+    if (Api.instance.notLoggedIn) return onError("Login First");
     try {
       final editedPost = await Api.instance.editPost(
         id: post.id,
@@ -69,7 +69,7 @@ class _PostFormState extends State<PostForm> {
       // reset();
     } catch (e) {
       setState(() => loading = false);
-      error(e);
+      onError(e);
     }
   }
 

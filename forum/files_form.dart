@@ -72,7 +72,7 @@ class _FilesFormState extends State<FilesForm> {
                             );
                             setState(() => null);
                           } catch (e) {
-                            error(e);
+                            onError(e);
                           }
                         }
                       },
