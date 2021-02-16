@@ -4,13 +4,15 @@ import 'package:firelamp/firelamp.dart';
 import 'package:flutter/material.dart';
 
 class ForumBasicPostView extends StatefulWidget {
-  ForumBasicPostView(
-    this.post, {
+  ForumBasicPostView({
+    this.post,
+    this.meta,
     this.actions = const [],
     Key key,
   }) : super(key: key);
 
   final ApiPost post;
+  final Widget meta;
   final List<Widget> actions;
 
   @override
@@ -18,14 +20,16 @@ class ForumBasicPostView extends StatefulWidget {
 }
 
 class _ForumBasicPostViewState extends State<ForumBasicPostView> {
-  bool displayContent = false;
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ForumBasicPostTitle(widget.post,
-            onTap: () => setState(() => displayContent = !displayContent)),
-        if (displayContent) DisplayContent(widget.post),
+            onTap: () => setState(() => widget.post.display = !widget.post.display)),
+        if (widget.post.display && widget.meta != null) widget.meta,
+        if (widget.post.display) DisplayContent(widget.post),
+        if (widget.post.display) Row(children: widget.actions),
       ],
     );
   }
