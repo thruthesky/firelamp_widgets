@@ -1,10 +1,4 @@
 import 'dart:io';
-import 'dart:math';
-
-import 'package:dalgona/firelamp_widgets/defines.dart';
-
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -76,23 +70,23 @@ Future<ApiFile> imageUpload({int quality = 90, Function onProgress}) async {
 /// ``` dart
 /// localFilePath('photo/baby.jpg');
 /// ```
-Future<String> getAbsoluteTemporaryFilePath(String relativePath) async {
-  var directory = await getTemporaryDirectory();
-  return p.join(directory.path, relativePath);
-}
+// Future<String> getAbsoluteTemporaryFilePath(String relativePath) async {
+//   var directory = await getTemporaryDirectory();
+//   return p.join(directory.path, relativePath);
+// }
 
 /// Returns a random string
 ///
 ///
-String getRandomString({int len = 16, String prefix}) {
-  const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  var t = '';
-  for (var i = 0; i < len; i++) {
-    t += charset[(Random().nextInt(charset.length))];
-  }
-  if (prefix != null && prefix.isNotEmpty) t = prefix + t;
-  return t;
-}
+// String getRandomString({int len = 16, String prefix}) {
+//   const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
+//   var t = '';
+//   for (var i = 0; i < len; i++) {
+//     t += charset[(Random().nextInt(charset.length))];
+//   }
+//   if (prefix != null && prefix.isNotEmpty) t = prefix + t;
+//   return t;
+// }
 
 error(dynamic e, [String message]) {
   print('=> error(e): ');

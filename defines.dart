@@ -8,5 +8,3 @@ class Space {
   static const double xl = 40;
   static const double xxl = 56;
 }
-
-const String ERROR_IMAGE_NOT_SELECTED = 'ERROR_IMAGE_NOT_SELECTED';
