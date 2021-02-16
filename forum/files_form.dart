@@ -1,11 +1,10 @@
 
+import 'package:dalgona/widgets/image.cache.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 
 import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:dalgona/firelamp_widgets/functions.dart';
-
-import 'package:dalgona/firelamp_widgets/misc/cache_image.dart';
 
 class FilesForm extends StatefulWidget {
   const FilesForm({
@@ -42,7 +41,7 @@ class _FilesFormState extends State<FilesForm> {
                 fit: StackFit.expand,
                 children: [
                   ClipRRect(
-                    child: CacheImage(file.url),
+                    child: CachedImage(file.url),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   Positioned(

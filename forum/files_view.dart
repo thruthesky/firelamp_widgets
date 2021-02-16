@@ -1,8 +1,7 @@
+import 'package:dalgona/widgets/image.cache.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
-
-import 'package:dalgona/firelamp_widgets/misc/cache_image.dart';
 
 class FilesView extends StatelessWidget {
   const FilesView({
@@ -24,7 +23,7 @@ class FilesView extends StatelessWidget {
           style: TextStyle(color: Colors.grey, fontSize: Space.xsm),
         ),
         Divider(),
-        for (ApiFile file in postOrComment.files) CacheImage(file.url),
+        for (ApiFile file in postOrComment.files) CachedImage(file.url),
       ],
     );
   }

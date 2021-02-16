@@ -1,6 +1,6 @@
+import 'package:dalgona/widgets/image.cache.dart';
 import 'package:flutter/material.dart';
 
-import '../misc/cache_image.dart';
 
 class UserAvatar extends StatelessWidget {
   UserAvatar(this.url, {this.size = 48, this.onTap});
@@ -17,7 +17,7 @@ class UserAvatar extends StatelessWidget {
         child: url == null || url == ''
             ? Icon(Icons.person)
             : ClipOval(
-                child: CacheImage(url),
+                child: CachedImage(url),
               ),
         decoration: BoxDecoration(
           shape: BoxShape.circle,

@@ -1,7 +1,7 @@
 import 'package:dalgona/firelamp_widgets/functions.dart';
 import 'package:dalgona/firelamp_widgets/forum/files_form.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
-import 'package:dalgona/firelamp_widgets/misc/spinner.dart';
+import 'package:dalgona/firelamp_widgets/widgets/spinner.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:flutter/material.dart';
 
