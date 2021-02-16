@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 /// Basic(sample) widget for creating a post
 ///
 /// ```dart
-/// PostEditBasic(
+/// ForumBasicPostEdit(
 ///   category: 'qna',
 ///   onCancel: () {
 ///     print('cancel:');
@@ -22,8 +22,8 @@ import 'package:image_picker/image_picker.dart';
 /// ),
 /// ```dart
 ///
-class PostEditBasic extends StatefulWidget {
-  PostEditBasic({
+class ForumBasicPostEdit extends StatefulWidget {
+  ForumBasicPostEdit({
     @required this.category,
     @required this.onSuccess,
     @required this.onCancel,
@@ -35,10 +35,10 @@ class PostEditBasic extends StatefulWidget {
   final Function onError;
 
   @override
-  _PostEditBasicState createState() => _PostEditBasicState();
+  _ForumBasicPostEditState createState() => _ForumBasicPostEditState();
 }
 
-class _PostEditBasicState extends State<PostEditBasic> {
+class _ForumBasicPostEditState extends State<ForumBasicPostEdit> {
   ApiPost post;
 
   @override
