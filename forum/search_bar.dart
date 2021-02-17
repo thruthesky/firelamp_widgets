@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -86,7 +87,7 @@ class _SearchBarState extends State<SearchBar> {
               fillColor: Colors.white,
 
               /// todo: create definition inside `firelamp_widgets`
-              contentPadding: EdgeInsets.symmetric(horizontal: 18),
+              contentPadding: EdgeInsets.symmetric(horizontal: Space.md),
               border: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
               ),

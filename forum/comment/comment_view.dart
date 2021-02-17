@@ -1,12 +1,14 @@
+import 'package:dalgona/firelamp_widgets/forum/comment/comment_content.dart';
 import 'package:dalgona/firelamp_widgets/widgets/popup_button.dart';
-import 'package:dalgona/firelamp_widgets/forum/vote_button.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/vote_button.dart';
+import 'package:dalgona/firelamp_widgets/widgets/rounded_box.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
-import 'package:dalgona/firelamp_widgets/forum/comment_meta.dart';
-import 'package:dalgona/firelamp_widgets/forum/comment_form.dart';
+import 'package:dalgona/firelamp_widgets/forum/comment/comment_meta.dart';
+import 'package:dalgona/firelamp_widgets/forum/comment/comment_form.dart';
 
-import 'package:dalgona/firelamp_widgets/forum/files_view.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/files_view.dart';
 import 'package:dalgona/firelamp_widgets/user/user_avatar.dart';
 
 class CommentView extends StatefulWidget {
@@ -53,25 +55,22 @@ class _CommentViewState extends State<CommentView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(top: Space.sm, left: Space.sm * (widget.comment.depth - 1)),
+    return RoundedBox(
       padding: EdgeInsets.all(Space.sm),
-      decoration: BoxDecoration(
-        color: Color(0x338fb1cc),
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
+      margin: EdgeInsets.only(top: Space.sm, left: Space.sm * (widget.comment.depth - 1)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommentMeta(widget.comment, avatar: UserAvatar(widget.comment.userPhoto, size: 40)),
+          Row(
+            children: [
+              UserAvatar(widget.comment.userPhoto, size: 40),
+              SizedBox(width: Space.xs),
+              CommentMeta(widget.comment),
+            ],
+          ),
           if (widget.comment.mode == CommentMode.none ||
               widget.comment.mode == CommentMode.reply) ...[
-            if (widget.comment.commentContent.isNotEmpty)
-              Padding(
-                padding: EdgeInsets.only(top: Space.sm),
-                child: SelectableText('${widget.comment.commentContent}'),
-              ),
+            CommentContent(widget.comment),
             FilesView(postOrComment: widget.comment),
             Divider(),
             Row(children: [

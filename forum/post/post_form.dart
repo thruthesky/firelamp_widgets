@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 
 import 'package:dalgona/firelamp_widgets/defines.dart';
-import 'package:dalgona/firelamp_widgets/forum/files_form.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/files_form.dart';
 
 class PostForm extends StatefulWidget {
   PostForm(this.forum);

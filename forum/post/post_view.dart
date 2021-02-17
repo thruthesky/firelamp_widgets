@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 
 import 'package:dalgona/firelamp_widgets/defines.dart';
-import 'package:dalgona/firelamp_widgets/forum/comment_form.dart';
-import 'package:dalgona/firelamp_widgets/forum/comment_list.dart';
-import 'package:dalgona/firelamp_widgets/forum/post_meta.dart';
-import 'package:dalgona/firelamp_widgets/forum/files_view.dart';
+import 'package:dalgona/firelamp_widgets/forum/comment/comment_form.dart';
+import 'package:dalgona/firelamp_widgets/forum/comment/comment_list.dart';
+import 'package:dalgona/firelamp_widgets/forum/post/post_meta.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/files_view.dart';
 import 'package:dalgona/firelamp_widgets/user/user_avatar.dart';
 
 class PostView extends StatefulWidget {
