@@ -52,12 +52,7 @@ class _PostViewState extends State<PostView> {
           ),
           Padding(
             padding: EdgeInsets.only(top: Space.sm),
-            child: SelectableText('${post.postTitle}',
-                style: TextStyle(
-                  fontSize: Space.md,
-                  color: Colors.blueGrey,
-                  fontWeight: FontWeight.w600,
-                )),
+            child: SelectableText('${post.postTitle}', style: stylePostTitle),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: Space.sm),
