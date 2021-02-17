@@ -63,7 +63,7 @@ class _PostViewState extends State<PostView> {
           if (post.display) ...[
             Padding(
               padding: EdgeInsets.symmetric(vertical: Space.sm),
-              child: SelectableText('${post.postContent}', style: TextStyle(fontSize: Space.sm)),
+              child: SelectableText('${post.postTitle}', style: stylePostTitle),
             ),
             FilesView(postOrComment: post),
             Divider(),
