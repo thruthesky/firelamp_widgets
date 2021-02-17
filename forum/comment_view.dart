@@ -1,3 +1,4 @@
+import 'package:dalgona/firelamp_widgets/forum/comment_content.dart';
 import 'package:dalgona/firelamp_widgets/widgets/popup_button.dart';
 import 'package:dalgona/firelamp_widgets/forum/vote_button.dart';
 import 'package:flutter/material.dart';
@@ -64,14 +65,16 @@ class _CommentViewState extends State<CommentView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommentMeta(widget.comment, avatar: UserAvatar(widget.comment.userPhoto, size: 40)),
+          Row(
+            children: [
+              UserAvatar(widget.comment.userPhoto, size: 40),
+              SizedBox(width: Space.xs),
+              CommentMeta(widget.comment),
+            ],
+          ),
           if (widget.comment.mode == CommentMode.none ||
               widget.comment.mode == CommentMode.reply) ...[
-            if (widget.comment.commentContent.isNotEmpty)
-              Padding(
-                padding: EdgeInsets.only(top: Space.sm),
-                child: SelectableText('${widget.comment.commentContent}'),
-              ),
+            CommentContent(widget.comment),
             FilesView(postOrComment: widget.comment),
             Divider(),
             Row(children: [

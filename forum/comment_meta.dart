@@ -4,40 +4,30 @@ import 'package:flutter/material.dart';
 
 class CommentMeta extends StatelessWidget {
   final ApiComment comment;
-
-  /// Widget to show as an avatar when it is not null.
-  final Widget avatar;
-
-  CommentMeta(this.comment, {this.avatar});
+  CommentMeta(this.comment);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (avatar != null) avatar,
-          SizedBox(width: Space.xs),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Text(
+            '${comment.commentAuthor}',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: Space.sm,
+            ),
+          ),
+          Row(
             children: [
-              Text(
-                '${comment.commentAuthor}',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: Space.sm,
-                ),
+              Icon(
+                Icons.circle,
+                size: Space.xxs,
+                color: Colors.blueAccent,
               ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.circle,
-                    size: Space.xxs,
-                    color: Colors.blueAccent,
-                  ),
-                  SizedBox(width: Space.xs),
-                  Text('${comment.shortDateTime}'),
-                ],
-              ),
+              SizedBox(width: Space.xs),
+              Text('${comment.shortDateTime}'),
             ],
           ),
         ],
