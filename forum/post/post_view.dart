@@ -1,3 +1,4 @@
+import 'package:dalgona/firelamp_widgets/widgets/rounded_box.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 
@@ -14,11 +15,13 @@ class PostView extends StatefulWidget {
     this.i,
     this.forum,
     this.actions,
+    this.onTitleTap,
   }) : super(key: key);
 
   final ApiForum forum;
   final int i;
   final List<Widget> actions;
+  final Function onTitleTap;
 
   @override
   _PostViewState createState() => _PostViewState();
@@ -30,19 +33,26 @@ class _PostViewState extends State<PostView> {
     ApiForum forum = widget.forum;
     ApiPost post = widget.forum.posts[widget.i];
 
-    return Container(
-      width: double.infinity,
+    return RoundedBox(
       margin: EdgeInsets.all(Space.sm),
       padding: EdgeInsets.all(Space.sm),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
-        ),
-      ),
+      boxColor: Colors.grey[100],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: widget.onTitleTap,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: Space.xs),
+              child: SelectableText('${post.postTitle}',
+                  style: TextStyle(
+                    fontSize: Space.md,
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.w600,
+                  )),
+            ),
+          ),
           Row(
             children: [
               UserAvatar(post.featuredImageThumbnailUrl, size: 40),
@@ -50,24 +60,17 @@ class _PostViewState extends State<PostView> {
               PostMeta(post),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(top: Space.sm),
-            child: SelectableText('${post.postTitle}',
-                style: TextStyle(
-                  fontSize: Space.md,
-                  color: Colors.blueGrey,
-                  fontWeight: FontWeight.w600,
-                )),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: Space.sm),
-            child: SelectableText('${post.postContent}', style: TextStyle(fontSize: Space.sm)),
-          ),
-          FilesView(postOrComment: post),
-          Divider(),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
-          CommentForm(post: post, forum: forum, comment: ApiComment()),
-          CommentList(post: post, forum: forum),
+          if (post.display) ...[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: Space.sm),
+              child: SelectableText('${post.postContent}', style: TextStyle(fontSize: Space.sm)),
+            ),
+            FilesView(postOrComment: post),
+            Divider(),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
+            CommentForm(post: post, forum: forum, comment: ApiComment()),
+            CommentList(post: post, forum: forum),
+          ]
         ],
       ),
     );
