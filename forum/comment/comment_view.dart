@@ -1,14 +1,14 @@
-import 'package:dalgona/firelamp_widgets/forum/comment_content.dart';
+import 'package:dalgona/firelamp_widgets/forum/comment/comment_content.dart';
 import 'package:dalgona/firelamp_widgets/widgets/popup_button.dart';
-import 'package:dalgona/firelamp_widgets/forum/vote_button.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/vote_button.dart';
 import 'package:dalgona/firelamp_widgets/widgets/rounded_box.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
-import 'package:dalgona/firelamp_widgets/forum/comment_meta.dart';
-import 'package:dalgona/firelamp_widgets/forum/comment_form.dart';
+import 'package:dalgona/firelamp_widgets/forum/comment/comment_meta.dart';
+import 'package:dalgona/firelamp_widgets/forum/comment/comment_form.dart';
 
-import 'package:dalgona/firelamp_widgets/forum/files_view.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/files_view.dart';
 import 'package:dalgona/firelamp_widgets/user/user_avatar.dart';
 
 class CommentView extends StatefulWidget {

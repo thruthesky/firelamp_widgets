@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 
-import 'package:dalgona/firelamp_widgets/forum/comment_view.dart';
+import 'package:dalgona/firelamp_widgets/forum/comment/comment_view.dart';
 
 class CommentList extends StatefulWidget {
   CommentList({

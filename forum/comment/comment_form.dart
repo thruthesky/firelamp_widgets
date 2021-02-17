@@ -1,5 +1,5 @@
 
-import 'package:dalgona/firelamp_widgets/forum/files_form.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/files_form.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:dalgona/firelamp_widgets/functions.dart';
 import 'package:dalgona/firelamp_widgets/widgets/spinner.dart';
