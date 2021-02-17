@@ -1,6 +1,7 @@
 import 'package:dalgona/firelamp_widgets/forum/comment_content.dart';
 import 'package:dalgona/firelamp_widgets/widgets/popup_button.dart';
 import 'package:dalgona/firelamp_widgets/forum/vote_button.dart';
+import 'package:dalgona/firelamp_widgets/widgets/rounded_box.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
@@ -54,14 +55,9 @@ class _CommentViewState extends State<CommentView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(top: Space.sm, left: Space.sm * (widget.comment.depth - 1)),
+    return RoundedBox(
       padding: EdgeInsets.all(Space.sm),
-      decoration: BoxDecoration(
-        color: Color(0x338fb1cc),
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
+      margin: EdgeInsets.only(top: Space.sm, left: Space.sm * (widget.comment.depth - 1)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
