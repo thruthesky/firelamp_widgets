@@ -1,5 +1,4 @@
-
-import 'package:dalgona/widgets/image.cache.dart';
+import 'package:dalgona/firelamp_widgets/widgets/image.cache.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 

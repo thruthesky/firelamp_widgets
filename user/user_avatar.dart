@@ -1,6 +1,5 @@
-import 'package:dalgona/widgets/image.cache.dart';
+import 'package:dalgona/firelamp_widgets/widgets/image.cache.dart';
 import 'package:flutter/material.dart';
-
 
 class UserAvatar extends StatelessWidget {
   UserAvatar(this.url, {this.size = 48, this.onTap});
