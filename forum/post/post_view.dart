@@ -12,14 +12,15 @@ import 'package:dalgona/firelamp_widgets/user/user_avatar.dart';
 class PostView extends StatefulWidget {
   const PostView({
     Key key,
-    this.i,
+    this.post,
     this.forum,
     this.actions,
     this.onTitleTap,
   }) : super(key: key);
 
   final ApiForum forum;
-  final int i;
+  // final int i;
+  final ApiPost post;
   final List<Widget> actions;
   final Function onTitleTap;
 
@@ -30,45 +31,41 @@ class PostView extends StatefulWidget {
 class _PostViewState extends State<PostView> {
   @override
   Widget build(BuildContext context) {
-    ApiForum forum = widget.forum;
-    ApiPost post = widget.forum.posts[widget.i];
-
     return RoundedBox(
-      margin: EdgeInsets.all(Space.sm),
-      padding: EdgeInsets.all(Space.sm),
+      margin: EdgeInsets.all(Space.xs),
+      padding: EdgeInsets.all(Space.xsm),
       boxColor: Colors.grey[100],
+      radius: 10,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
-            behavior: HitTestBehavior.opaque,
             onTap: widget.onTitleTap,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: Space.xs),
-              child: SelectableText('${post.postTitle}',
-                  style: TextStyle(
-                    fontSize: Space.md,
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.w600,
-                  )),
+            behavior: HitTestBehavior.opaque,
+            child: Row(
+              children: [
+                UserAvatar(widget.post.featuredImageThumbnailUrl, size: 40),
+                SizedBox(width: Space.sm),
+                PostMeta(widget.post),
+              ],
             ),
           ),
-          Row(
-            children: [
-              UserAvatar(post.featuredImageThumbnailUrl, size: 40),
-              SizedBox(width: Space.xs),
-              PostMeta(post),
-            ],
-          ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: Space.sm),
-            child: SelectableText('${post.postContent}', style: TextStyle(fontSize: Space.sm)),
+            padding: EdgeInsets.only(top: Space.xs),
+            child: SelectableText('${widget.post.postTitle}', style: stylePostTitle),
           ),
-          FilesView(postOrComment: post),
-          Divider(),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
-          CommentForm(post: post, forum: forum, comment: ApiComment()),
-          CommentList(post: post, forum: forum),
+          if (widget.post.display) ...[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: Space.sm),
+              child: SelectableText('${widget.post.postContent}',
+                  style: TextStyle(fontSize: Space.sm)),
+            ),
+            FilesView(postOrComment: widget.post),
+            Divider(),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
+            CommentForm(post: widget.post, forum: widget.forum, comment: ApiComment()),
+            CommentList(post: widget.post, forum: widget.forum),
+          ],
         ],
       ),
     );

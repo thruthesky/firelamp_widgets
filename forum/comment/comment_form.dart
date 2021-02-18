@@ -1,4 +1,3 @@
-
 import 'package:dalgona/firelamp_widgets/forum/shared/files_form.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:dalgona/firelamp_widgets/functions.dart';
@@ -37,7 +36,7 @@ class _CommentFormState extends State<CommentForm> {
 
   bool loading = false;
 
-  bool get canSubmit => content.text != '' || comment.files.isNotEmpty;
+  bool get canSubmit => (content.text != '' || comment.files.isNotEmpty) && !loading;
   double percentage = 0;
 
   // file upload
@@ -52,7 +51,7 @@ class _CommentFormState extends State<CommentForm> {
     } catch (e) {
       if (e == ERROR_IMAGE_NOT_SELECTED) {
       } else {
-       onError(e);
+        onError(e);
       }
     }
   }
@@ -102,36 +101,40 @@ class _CommentFormState extends State<CommentForm> {
         children: [
           SizedBox(height: Space.xs),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               IconButton(
                 alignment: Alignment.center,
-                icon: Icon(Icons.camera_alt),
+                icon: Icon(Icons.camera_alt, color: Colors.black),
                 onPressed: onImageIconPressed,
               ),
               Expanded(
                 child: TextFormField(
-                    controller: content,
-                    onChanged: (v) => setState(() => null),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      contentPadding: EdgeInsets.symmetric(horizontal: Space.xs),
-                      border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(25.0),
-                        ),
+                  controller: content,
+                  onChanged: (v) => setState(() => null),
+                  // expands: true,
+                  minLines: 1,
+                  maxLines: 10,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: EdgeInsets.all(Space.sm),
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(25.0),
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ),
               if (loading)
-                Padding(padding: EdgeInsets.symmetric(horizontal: Space.sm), child: Spinner()),
-              if (canSubmit && !loading)
+                Padding(padding: EdgeInsets.all(Space.xs), child: Spinner(centered: false)),
+              if (canSubmit)
                 IconButton(
                   alignment: Alignment.center,
-                  icon: Icon(Icons.send),
+                  icon: Icon(Icons.send_rounded),
                   onPressed: onFormSubmit,
-                ),
+                )
             ],
           ),
           FilesForm(postOrComment: comment),

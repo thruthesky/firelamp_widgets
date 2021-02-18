@@ -63,6 +63,7 @@ class _PostFormState extends State<PostForm> {
         content: content.text,
         files: post.files,
       );
+      editedPost.display = true;
       widget.forum.insertOrUpdatePost(editedPost);
       setState(() => loading = false);
       // reset();
@@ -134,8 +135,12 @@ class _PostFormState extends State<PostForm> {
                   children: [
                     if (!loading)
                       FlatButton(
-                        child: Text('Cancel'),
-                        color: Colors.red[300],
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: Colors.red[300],
+                          ),
+                        ),
                         onPressed: () {
                           forum.postInEdit = null;
                           forum..render();
@@ -143,8 +148,9 @@ class _PostFormState extends State<PostForm> {
                       ),
                     SizedBox(width: Space.xs),
                     FlatButton(
-                      child: loading ? Spinner() : Text('Submit'),
-                      color: loading ? Colors.grey : Colors.green[300],
+                      child: loading
+                          ? Spinner()
+                          : Text('Submit', style: TextStyle(color: Colors.green[300])),
                       onPressed: onFormSubmit,
                     ),
                   ],
