@@ -60,17 +60,15 @@ class _PostViewState extends State<PostView> {
               PostMeta(post),
             ],
           ),
-          if (post.display) ...[
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: Space.sm),
-              child: SelectableText('${post.postTitle}', style: stylePostTitle),
-            ),
-            FilesView(postOrComment: post),
-            Divider(),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
-            CommentForm(post: post, forum: forum, comment: ApiComment()),
-            CommentList(post: post, forum: forum),
-          ]
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: Space.sm),
+            child: SelectableText('${post.postContent}', style: TextStyle(fontSize: Space.sm)),
+          ),
+          FilesView(postOrComment: post),
+          Divider(),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
+          CommentForm(post: post, forum: forum, comment: ApiComment()),
+          CommentList(post: post, forum: forum),
         ],
       ),
     );

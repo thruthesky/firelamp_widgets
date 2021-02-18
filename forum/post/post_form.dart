@@ -36,7 +36,8 @@ class _PostFormState extends State<PostForm> {
 
   onImageIconTap() async {
     try {
-      final file = await imageUpload(quality: 95, onProgress: (p) => setState(() => percentage = p));
+      final file =
+          await imageUpload(quality: 95, onProgress: (p) => setState(() => percentage = p));
       // print('file upload success: $file');
       percentage = 0;
       post.files.add(file);
@@ -129,16 +130,25 @@ class _PostFormState extends State<PostForm> {
                   ),
 
                 /// Submit button
-                if (!loading)
-                  Row(
-                    children: [
+                Row(
+                  children: [
+                    if (!loading)
                       FlatButton(
-                        child: loading ? Spinner() : Text('Submit'),
-                        color: loading ? Colors.grey : Colors.green[300],
-                        onPressed: onFormSubmit,
+                        child: Text('Cancel'),
+                        color: Colors.red[300],
+                        onPressed: () {
+                          forum.postInEdit = null;
+                          forum..render();
+                        },
                       ),
-                    ],
-                  ),
+                    SizedBox(width: Space.xs),
+                    FlatButton(
+                      child: loading ? Spinner() : Text('Submit'),
+                      color: loading ? Colors.grey : Colors.green[300],
+                      onPressed: onFormSubmit,
+                    ),
+                  ],
+                ),
               ],
             ),
           ],
