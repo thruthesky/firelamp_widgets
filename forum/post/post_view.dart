@@ -66,7 +66,7 @@ class _PostViewState extends State<PostView> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: Space.sm),
               child: SelectableText('${widget.post.postContent}',
-                  style: TextStyle(fontSize: Space.sm)),
+                  style: TextStyle(fontSize: Space.sm, wordSpacing: 2)),
             ),
             FilesView(postOrComment: widget.post),
             Divider(),
