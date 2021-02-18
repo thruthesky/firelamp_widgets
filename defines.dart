@@ -14,5 +14,6 @@ class Space {
 const stylePostTitle = TextStyle(
   fontSize: 24,
   color: Colors.blueGrey,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w400,
+  fontFamily: '',
 );

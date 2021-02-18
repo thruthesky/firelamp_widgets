@@ -42,17 +42,20 @@ class _PostViewState extends State<PostView> {
           GestureDetector(
             onTap: widget.onTitleTap,
             behavior: HitTestBehavior.opaque,
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UserAvatar(widget.post.featuredImageThumbnailUrl, size: 40),
-                SizedBox(width: Space.sm),
-                PostMeta(widget.post),
+                Row(
+                  children: [
+                    UserAvatar(widget.post.featuredImageThumbnailUrl, size: 40),
+                    SizedBox(width: Space.sm),
+                    PostMeta(widget.post),
+                  ],
+                ),
+                SizedBox(height: Space.sm),
+                Text('${widget.post.postTitle}', style: stylePostTitle),
               ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: Space.xs),
-            child: SelectableText('${widget.post.postTitle}', style: stylePostTitle),
           ),
           if (widget.post.display) ...[
             Padding(

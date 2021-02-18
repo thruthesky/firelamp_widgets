@@ -58,6 +58,7 @@ class _CommentViewState extends State<CommentView> {
     return RoundedBox(
       padding: EdgeInsets.all(Space.sm),
       margin: EdgeInsets.only(top: Space.sm, left: Space.sm * (widget.comment.depth - 1)),
+      boxColor: Colors.grey[200],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

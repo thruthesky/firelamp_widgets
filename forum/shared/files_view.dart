@@ -23,7 +23,20 @@ class FilesView extends StatelessWidget {
           style: TextStyle(color: Colors.grey, fontSize: Space.xsm),
         ),
         Divider(),
-        for (ApiFile file in postOrComment.files) CachedImage(file.url),
+        GridView.count(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          crossAxisCount: 3,
+          mainAxisSpacing: 8.0,
+          crossAxisSpacing: 8.0,
+          children: [
+            for (ApiFile file in postOrComment.files)
+              ClipRRect(
+                child: CachedImage(file.url),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+          ],
+        ),
       ],
     );
   }
