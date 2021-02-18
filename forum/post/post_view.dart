@@ -53,7 +53,12 @@ class _PostViewState extends State<PostView> {
                   ],
                 ),
                 SizedBox(height: Space.sm),
-                Text('${widget.post.postTitle}', style: stylePostTitle),
+                Text(
+                  '${widget.post.postTitle}',
+                  style: stylePostTitle,
+                  maxLines: widget.post.display ? null : 2,
+                  overflow: widget.post.display ? null : TextOverflow.ellipsis,
+                ),
               ],
             ),
           ),
