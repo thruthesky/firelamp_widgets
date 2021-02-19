@@ -58,12 +58,15 @@ class _SearchBarState extends State<SearchBar> {
     return widget.display == false
         ? SizedBox.shrink()
         : Padding(
-            padding: EdgeInsets.all(Space.xs),
+            padding: EdgeInsets.only(top: Space.xs, bottom: Space.xs, right: Space.xs),
             child: Row(
               children: [
-                IconButton(
-                  icon: Icon(Icons.close, color: Colors.redAccent),
-                  onPressed: widget.onCancel,
+                Container(
+                  width: 40,
+                  child: IconButton(
+                    icon: Icon(Icons.close, color: Colors.redAccent),
+                    onPressed: widget.onCancel,
+                  ),
                 ),
                 Container(
                   width: 50,
