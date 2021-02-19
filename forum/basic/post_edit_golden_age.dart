@@ -62,11 +62,11 @@ class _ForumBasicPostEditGoldenAgeState extends State<ForumBasicPostEditGoldenAg
       final res = await Api.instance.takeUploadFile(
           source: source,
           onProgress: (p) {
-            print('p: $p');
+            // print('p: $p');
           });
       post.files.add(res);
       setState(() {});
-      print('success: $res');
+      // print('success: $res');
     } catch (e) {
       widget.onError(e);
     }
@@ -142,10 +142,10 @@ class _ForumBasicPostEditGoldenAgeState extends State<ForumBasicPostEditGoldenAg
                                 icon: Icon(Icons.delete),
                                 backgroundColor: Colors.grey[800],
                                 onPressed: () async {
-                                  print('delete: ${file.id}');
+                                  // print('delete: ${file.id}');
                                   try {
                                     await Api.instance.deleteFile(file.id, postOrComment: post);
-                                    print('delete: success');
+                                    // print('delete: success');
                                     setState(() {});
                                   } catch (e) {
                                     widget.onError(e);
