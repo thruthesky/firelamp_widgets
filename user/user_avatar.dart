@@ -22,7 +22,7 @@ class UserAvatar extends StatelessWidget {
           shape: BoxShape.circle,
           color: Colors.blue,
           boxShadow: [
-            BoxShadow(color: Colors.grey[300], blurRadius: 3.0, spreadRadius: 2.0),
+            BoxShadow(color: Colors.black26, blurRadius: 1.0, spreadRadius: 1.0),
           ],
         ),
       ),
