@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dalgona/firelamp_widgets/defines.dart';
+import 'package:dalgona/firelamp_widgets/widgets/popup_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -16,7 +17,6 @@ class SearchBar extends StatefulWidget {
     this.searchOnInputChange = true,
   });
   final bool display;
-  // final String category;
   final String categories;
   final Function onCategoryChange;
   final Function onSearch;
@@ -57,48 +57,75 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return widget.display == false
         ? SizedBox.shrink()
-        : Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(Space.xs),
-                child: TextField(
-                  autofocus: false,
-                  onChanged: widget.searchOnInputChange
-                      ? (value) => input.add(value)
-                      : (value) => searchKey = value,
-                  decoration: InputDecoration(
-                    prefixIcon: IconButton(
-                      icon: Icon(Icons.close, color: Colors.redAccent),
-                      onPressed: widget.onCancel,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.symmetric(horizontal: Space.xxs),
-                    border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () => widget.onSearch(searchKey),
+        : Padding(
+            padding: EdgeInsets.all(Space.xs),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.close, color: Colors.redAccent),
+                  onPressed: widget.onCancel,
+                ),
+                Container(
+                  width: 50,
+                  child: Text(
+                    '${widget.defaultValue.isNotEmpty ? widget.defaultValue : selected ?? widget.categories.split(',').first}',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                PopUpButton(
+                  items: [
+                    for (final category in widget.categories.split(','))
+                      PopupMenuItem(
+                        child: Text('$category'),
+                        value: category,
+                        textStyle: selected == category
+                            ? TextStyle(color: Colors.green[600], fontWeight: FontWeight.w700)
+                            : null,
+                      )
+                  ],
+                  onSelected: (selectedCat) {
+                    if (selected == selectedCat) return;
+                    setState(() => selected = selectedCat);
+                    widget.onCategoryChange(selected);
+                  },
+                ),
+                Flexible(
+                  child: TextField(
+                    autofocus: false,
+                    onChanged: widget.searchOnInputChange
+                        ? (value) => input.add(value)
+                        : (value) => searchKey = value,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsets.symmetric(horizontal: Space.sm),
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () => widget.onSearch(searchKey),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              DropdownButton<String>(
-                isDense: true,
-                value: widget.defaultValue.isNotEmpty
-                    ? widget.defaultValue
-                    : selected ?? widget.categories.split(',').first,
-                items: widget.categories.split(',').map((cat) {
-                  return DropdownMenuItem<String>(value: cat, child: Text('$cat'));
-                }).toList(),
-                onChanged: (selectedCat) {
-                  if (selected == selectedCat) return;
-                  setState(() => selected = selectedCat);
-                  widget.onCategoryChange(selected);
-                },
-              ),
-            ],
+                // DropdownButton<String>(
+                //   isDense: true,
+                //   value: widget.defaultValue.isNotEmpty
+                //       ? widget.defaultValue
+                //       : selected ?? widget.categories.split(',').first,
+                //   items: widget.categories.split(',').map((cat) {
+                //     return DropdownMenuItem<String>(value: cat, child: Text('$cat'));
+                //   }).toList(),
+                //   onChanged: (selectedCat) {
+                //     if (selected == selectedCat) return;
+                //     setState(() => selected = selectedCat);
+                //     widget.onCategoryChange(selected);
+                //   },
+                // ),
+              ],
+            ),
           );
   }
 }
