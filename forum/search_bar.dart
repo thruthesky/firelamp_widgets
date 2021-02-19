@@ -58,7 +58,7 @@ class _SearchBarState extends State<SearchBar> {
     return widget.display == false
         ? SizedBox.shrink()
         : Padding(
-            padding: EdgeInsets.only(top: Space.xs, bottom: Space.xs, right: Space.xs),
+            padding: EdgeInsets.only(top: Space.xs, bottom: Space.xs),
             child: Row(
               children: [
                 Container(
@@ -68,8 +68,29 @@ class _SearchBarState extends State<SearchBar> {
                     onPressed: widget.onCancel,
                   ),
                 ),
+                Flexible(
+                  child: TextField(
+                    autofocus: false,
+                    onChanged: widget.searchOnInputChange
+                        ? (value) => input.add(value)
+                        : (value) => searchKey = value,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsets.symmetric(horizontal: Space.sm),
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () => widget.onSearch(searchKey),
+                      ),
+                    ),
+                  ),
+                ),
                 Container(
-                  width: 50,
+                  margin: EdgeInsets.only(left: Space.xsm),
+                  constraints: BoxConstraints(minWidth: 50),
                   child: Text(
                     '${widget.defaultValue.isNotEmpty ? widget.defaultValue : selected ?? widget.categories.split(',').first}',
                     overflow: TextOverflow.ellipsis,
@@ -93,40 +114,6 @@ class _SearchBarState extends State<SearchBar> {
                     widget.onCategoryChange(selected);
                   },
                 ),
-                Flexible(
-                  child: TextField(
-                    autofocus: false,
-                    onChanged: widget.searchOnInputChange
-                        ? (value) => input.add(value)
-                        : (value) => searchKey = value,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      contentPadding: EdgeInsets.symmetric(horizontal: Space.sm),
-                      border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(const Radius.circular(25.0)),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () => widget.onSearch(searchKey),
-                      ),
-                    ),
-                  ),
-                ),
-                // DropdownButton<String>(
-                //   isDense: true,
-                //   value: widget.defaultValue.isNotEmpty
-                //       ? widget.defaultValue
-                //       : selected ?? widget.categories.split(',').first,
-                //   items: widget.categories.split(',').map((cat) {
-                //     return DropdownMenuItem<String>(value: cat, child: Text('$cat'));
-                //   }).toList(),
-                //   onChanged: (selectedCat) {
-                //     if (selected == selectedCat) return;
-                //     setState(() => selected = selectedCat);
-                //     widget.onCategoryChange(selected);
-                //   },
-                // ),
               ],
             ),
           );
