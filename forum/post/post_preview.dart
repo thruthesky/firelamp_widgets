@@ -52,12 +52,15 @@ class PostPreview extends StatelessWidget {
               ],
             ),
           if (!hasFiles)
-            Column(
-              children: [
-                UserAvatar(post.profilePhotoUrl),
-                SizedBox(height: Space.xxs),
-                Text('${post.displayName}')
-              ],
+            Container(
+              constraints: BoxConstraints(minWidth: 70),
+              child: Column(
+                children: [
+                  UserAvatar(post.profilePhotoUrl),
+                  SizedBox(height: Space.xxs),
+                  Text('${post.displayName}')
+                ],
+              ),
             ),
           SizedBox(width: Space.xsm),
           Expanded(
