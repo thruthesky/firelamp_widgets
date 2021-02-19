@@ -23,7 +23,7 @@ class _VoteButtonState extends State<VoteButton> {
           // - call to API
           // - update post or comment vote count
           // - setstate to re-render
-          print('TODO: VOTE');
+          // print('TODO: VOTE');
         },
       ),
     );
