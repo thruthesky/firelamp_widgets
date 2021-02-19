@@ -35,7 +35,7 @@ class _PostViewState extends State<PostView> {
     return RoundedBox(
       margin: EdgeInsets.all(Space.xs),
       padding: EdgeInsets.all(Space.xsm),
-      boxColor: Colors.grey[100],
+      boxColor: Colors.white,
       radius: 10,
       child: widget.post.display
           ? Column(
