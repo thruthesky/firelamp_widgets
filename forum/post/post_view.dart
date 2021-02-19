@@ -1,3 +1,4 @@
+import 'package:dalgona/firelamp_widgets/forum/post/post_preview.dart';
 import 'package:dalgona/firelamp_widgets/widgets/rounded_box.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
@@ -34,48 +35,38 @@ class _PostViewState extends State<PostView> {
     return RoundedBox(
       margin: EdgeInsets.all(Space.xs),
       padding: EdgeInsets.all(Space.xsm),
-      boxColor: Colors.grey[100],
+      boxColor: Colors.white,
       radius: 10,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: widget.onTitleTap,
-            behavior: HitTestBehavior.opaque,
-            child: Column(
+      child: widget.post.display
+          ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    UserAvatar(widget.post.featuredImageThumbnailUrl, size: 40),
-                    SizedBox(width: Space.sm),
-                    PostMeta(widget.post),
-                  ],
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => setState(() => widget.post.display = false),
+                  child: Row(
+                    children: [
+                      UserAvatar(widget.post.profilePhotoUrl, size: 40),
+                      SizedBox(width: Space.sm),
+                      PostMeta(widget.post),
+                    ],
+                  ),
                 ),
                 SizedBox(height: Space.sm),
-                Text(
-                  '${widget.post.postTitle}',
-                  style: stylePostTitle,
-                  maxLines: widget.post.display ? null : 2,
-                  overflow: widget.post.display ? null : TextOverflow.ellipsis,
+                Text('${widget.post.postTitle}', style: stylePostTitle),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: Space.sm),
+                  child: SelectableText('${widget.post.postContent}',
+                      style: TextStyle(fontSize: Space.sm, wordSpacing: 2)),
                 ),
+                FilesView(postOrComment: widget.post),
+                Divider(),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
+                CommentForm(post: widget.post, forum: widget.forum, comment: ApiComment()),
+                CommentList(post: widget.post, forum: widget.forum),
               ],
-            ),
-          ),
-          if (widget.post.display) ...[
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: Space.sm),
-              child: SelectableText('${widget.post.postContent}',
-                  style: TextStyle(fontSize: Space.sm, wordSpacing: 2)),
-            ),
-            FilesView(postOrComment: widget.post),
-            Divider(),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
-            CommentForm(post: widget.post, forum: widget.forum, comment: ApiComment()),
-            CommentList(post: widget.post, forum: widget.forum),
-          ],
-        ],
-      ),
+            )
+          : PostPreview(widget.post, onTap: () => setState(() => widget.post.display = true)),
     );
   }
 }

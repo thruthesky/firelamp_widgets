@@ -12,8 +12,10 @@ class Space {
 }
 
 const stylePostTitle = TextStyle(
-  fontSize: 24,
+  fontSize: 20,
   color: Colors.blueGrey,
   fontWeight: FontWeight.w400,
   fontFamily: '',
 );
+
+const styleHintText = TextStyle(fontSize: Space.xsm, color: Colors.grey);
