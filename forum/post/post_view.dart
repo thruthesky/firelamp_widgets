@@ -61,7 +61,7 @@ class _PostViewState extends State<PostView> {
                 ),
                 FilesView(postOrComment: widget.post),
                 Divider(),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: widget.actions),
+                Row(children: widget.actions),
                 CommentForm(post: widget.post, forum: widget.forum, comment: ApiComment()),
                 CommentList(post: widget.post, forum: widget.forum),
               ],
