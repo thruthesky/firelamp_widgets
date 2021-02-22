@@ -9,8 +9,8 @@ import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
 
-class ChatMessageView extends StatefulWidget {
-  ChatMessageView({
+class ChatMessageViewWidget extends StatefulWidget {
+  ChatMessageViewWidget({
     this.message,
     this.onImageRenderCompelete,
     Key key,
@@ -20,10 +20,10 @@ class ChatMessageView extends StatefulWidget {
   final Function onImageRenderCompelete;
 
   @override
-  _ChatMessageViewState createState() => _ChatMessageViewState();
+  _ChatMessageViewWidgetState createState() => _ChatMessageViewWidgetState();
 }
 
-class _ChatMessageViewState extends State<ChatMessageView> {
+class _ChatMessageViewWidgetState extends State<ChatMessageViewWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,7 +41,8 @@ class _ChatMessageViewState extends State<ChatMessageView> {
               maxWidth: MediaQuery.of(context).size.width * 0.7,
             ),
             child: widget.message.isImage
-                ? CachedImage(widget.message.text)
+                ? CachedImage(widget.message.text,
+                    onImageRenderComplete: widget.onImageRenderCompelete)
                 : Text(
                     api.chat
                         .translateIfChatProtocol(widget.message.text ?? widget.message.protocol),

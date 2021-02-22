@@ -3,10 +3,11 @@ import './spinner.dart';
 import 'package:flutter/material.dart';
 
 class CachedImage extends StatelessWidget {
-  CachedImage(this.url, {this.width, this.height});
+  CachedImage(this.url, {this.width, this.height, this.onImageRenderComplete});
   final String url;
   final double width;
   final double height;
+  final Function onImageRenderComplete;
   @override
   Widget build(BuildContext context) {
     if (url == null) {
@@ -25,6 +26,13 @@ class CachedImage extends StatelessWidget {
       errorWidget: (context, url, error) => Icon(Icons.error),
       width: width,
       height: height,
+      imageBuilder: (context, provider) {
+        // execute your onLoad code here
+        if (onImageRenderComplete != null) onImageRenderComplete();
+        return Image(
+          image: provider,
+        );
+      },
     );
   }
 }
