@@ -12,6 +12,7 @@ class CommentForm extends StatefulWidget {
     this.parent,
     this.comment,
     @required this.forum,
+    this.onError,
   }) : super(key: key);
 
   /// post of the comment
@@ -19,6 +20,7 @@ class CommentForm extends StatefulWidget {
   final ApiComment parent;
   final ApiComment comment;
   final ApiForum forum;
+  final Function onError;
 
   @override
   _CommentFormState createState() => _CommentFormState();
@@ -84,6 +86,12 @@ class _CommentFormState extends State<CommentForm> {
     } catch (e) {
       setState(() => loading = false);
       onError(e);
+    }
+  }
+
+  onError(dynamic e) {
+    if (widget.onError != null) {
+      widget.onError(e);
     }
   }
 

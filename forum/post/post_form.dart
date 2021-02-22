@@ -8,9 +8,11 @@ import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:dalgona/firelamp_widgets/forum/shared/files_form.dart';
 
 class PostForm extends StatefulWidget {
-  PostForm(this.forum);
+  PostForm(this.forum, {this.onError});
 
   final ApiForum forum;
+  final Function onError;
+
   @override
   _PostFormState createState() => _PostFormState();
 }
@@ -71,6 +73,10 @@ class _PostFormState extends State<PostForm> {
       setState(() => loading = false);
       onError(e);
     }
+  }
+
+  onError(dynamic e) {
+    if (widget.onError != null) widget.onError(e);
   }
 
   @override

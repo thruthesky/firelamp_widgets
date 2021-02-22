@@ -5,12 +5,10 @@ import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
 
 class FilesForm extends StatefulWidget {
-  const FilesForm({
-    Key key,
-    this.postOrComment,
-  }) : super(key: key);
+  const FilesForm({Key key, this.postOrComment, this.onError}) : super(key: key);
 
   final dynamic postOrComment;
+  final Function onError;
 
   @override
   _FilesFormState createState() => _FilesFormState();
@@ -70,7 +68,9 @@ class _FilesFormState extends State<FilesForm> {
                             );
                             setState(() => null);
                           } catch (e) {
-                            onError(e);
+                            if (widget.onError != null) {
+                              widget.onError(e);
+                            }
                           }
                         }
                       },

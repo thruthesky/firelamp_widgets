@@ -8,16 +8,17 @@ class CommentList extends StatefulWidget {
   CommentList({
     this.post,
     this.forum,
+    this.onError,
   });
   final ApiPost post;
   final ApiForum forum;
+  final Function onError;
+
   @override
   _CommentListState createState() => _CommentListState();
 }
 
 class _CommentListState extends State<CommentList> {
-
-
   String get listText {
     final commentCount = widget.post.comments.length;
     final text = '$commentCount comment';
@@ -41,6 +42,7 @@ class _CommentListState extends State<CommentList> {
                     comment: comment,
                     post: widget.post,
                     forum: widget.forum,
+                    onError: widget.onError,
                   ),
               ],
             )

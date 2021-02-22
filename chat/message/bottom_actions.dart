@@ -8,6 +8,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessageButtomActions extends StatefulWidget {
+  final Function onError;
+
+  ChatMessageButtomActions({this.onError});
+
   @override
   _ChatMessageButtomActionsState createState() => _ChatMessageButtomActionsState();
 }
@@ -42,6 +46,10 @@ class _ChatMessageButtomActionsState extends State<ChatMessageButtomActions> {
         onError(e);
       }
     }
+  }
+
+  onError(dynamic e) {
+    if (widget.onError != null) widget.onError(e);
   }
 
   @override
