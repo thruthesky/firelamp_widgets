@@ -17,6 +17,7 @@ class PostView extends StatefulWidget {
     this.forum,
     this.actions,
     this.onTitleTap,
+    this.onError
   }) : super(key: key);
 
   final ApiForum forum;
@@ -24,6 +25,7 @@ class PostView extends StatefulWidget {
   final ApiPost post;
   final List<Widget> actions;
   final Function onTitleTap;
+  final Function onError;
 
   @override
   _PostViewState createState() => _PostViewState();
@@ -62,7 +64,7 @@ class _PostViewState extends State<PostView> {
                 FilesView(postOrComment: widget.post),
                 Divider(),
                 Row(children: widget.actions),
-                CommentForm(post: widget.post, forum: widget.forum, comment: ApiComment()),
+                CommentForm(post: widget.post, forum: widget.forum, comment: ApiComment(), onError: widget.onError),
                 CommentList(post: widget.post, forum: widget.forum),
               ],
             )

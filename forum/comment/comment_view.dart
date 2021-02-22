@@ -17,11 +17,14 @@ class CommentView extends StatefulWidget {
     this.comment,
     this.post,
     @required this.forum,
+    this.onError,
   }) : super(key: key);
 
   final ApiComment comment;
   final ApiPost post;
   final ApiForum forum;
+  final Function onError;
+
   @override
   _CommentViewState createState() => _CommentViewState();
 }
@@ -48,7 +51,9 @@ class _CommentViewState extends State<CommentView> {
         await Api.instance.deleteComment(widget.comment, widget.post);
         widget.forum.render();
       } catch (e) {
-        onError(e);
+          if (widget.onError != null) {
+            widget.onError(e);
+          }
       }
     }
   }
