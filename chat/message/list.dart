@@ -85,6 +85,7 @@ class _ChatMessageListWidgetState extends State<ChatMessageListWidget> {
                 final message = ApiChatMessage.fromData(api.chat.messages[i]);
                 return message.isMine
                     ? GestureDetector(
+                        behavior: HitTestBehavior.opaque,
                         child: ChatMessageViewWidget(
                             message: message,
                             onImageRenderCompelete: widget.onImageRenderCompelete),
