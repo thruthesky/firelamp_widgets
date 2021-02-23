@@ -7,8 +7,8 @@ class ImageNetwork extends StatefulWidget {
     this.url, {
     this.width,
     this.height,
-    this.onImageRenderComplete,
-  });
+    @required this.onImageRenderComplete,
+  }) : assert(url != null);
 
   final String url;
   final double width;
@@ -23,6 +23,7 @@ class _ImageNetworkState extends State<ImageNetwork> {
   bool _loading = true;
   Image _image;
   bool error = false;
+  ImageStreamListener listener;
 
   @override
   void initState() {
@@ -32,12 +33,15 @@ class _ImageNetworkState extends State<ImageNetwork> {
     );
 
     final ImageStream stream = _image.image.resolve(ImageConfiguration());
-    ImageStreamListener listener = ImageStreamListener((ImageInfo info, bool syncCall) {
+    listener = ImageStreamListener((ImageInfo info, bool syncCall) {
       setState(() {
         _loading = false;
-        if (widget.onImageRenderComplete != null) widget.onImageRenderComplete();
+        if (widget.onImageRenderComplete != null) {
+          print('completed!');
+          widget.onImageRenderComplete();
+          stream.removeListener(listener);
+        }
       });
-      stream.removeListener(ImageStreamListener((ImageInfo info, bool syncCall) {}));
     }, onError: (_, __) {
       error = true;
     });
@@ -46,15 +50,17 @@ class _ImageNetworkState extends State<ImageNetwork> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.url == null || error) {
-      return Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Icon(
-          Icons.error,
-          size: 64,
-        ),
-      );
-    }
+    if (error) return errorIcon();
     return _loading ? Spinner() : _image;
+  }
+
+  Widget errorIcon() {
+    return Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Icon(
+        Icons.error,
+        size: 64,
+      ),
+    );
   }
 }

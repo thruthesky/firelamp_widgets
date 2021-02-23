@@ -1,5 +1,4 @@
 import 'package:dalgona/firelamp_widgets/widgets/image.cache.dart';
-import 'package:dalgona/firelamp_widgets/widgets/image.network.dart';
 import 'package:dalgona/services/defines.dart';
 import 'package:dalgona/services/globals.dart';
 import 'package:dalgona/services/helper.functions.dart';
@@ -44,6 +43,12 @@ class _ChatMessageViewWidgetState extends State<ChatMessageViewWidget> {
             child: widget.message.isImage
                 ? CachedImage(
                     widget.message.text,
+                    onLoadComplete: () {
+                      if (widget.message.text == Api.instance.chat.lastImage) {
+                        print('load compelete for the last image only: ${widget.message.text}');
+                        widget.onImageRenderCompelete();
+                      }
+                    },
                   )
                 : Text(
                     api.chat
