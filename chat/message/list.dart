@@ -1,27 +1,24 @@
-import 'package:dalgona/firelamp_widgets/widgets/image.cache.dart';
-import 'package:dalgona/services/defines.dart';
+import 'package:dalgona/firelamp_widgets/chat/message/view.dart';
 import 'package:dalgona/services/globals.dart';
-import 'package:dalgona/services/helper.functions.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_bubble/bubble_type.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
 
-class MessageList extends StatefulWidget {
-  MessageList({
+class ChatMessageListWidget extends StatefulWidget {
+  ChatMessageListWidget({
     this.scrollController,
+    this.onImageRenderCompelete,
     Key key,
   }) : super(key: key);
 
   final ScrollController scrollController;
+  final Function onImageRenderCompelete;
 
   @override
-  _MessageListState createState() => _MessageListState();
+  _ChatMessageListWidgetState createState() => _ChatMessageListWidgetState();
 }
 
-class _MessageListState extends State<MessageList> {
+class _ChatMessageListWidgetState extends State<ChatMessageListWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -30,39 +27,16 @@ class _MessageListState extends State<MessageList> {
       itemCount: api?.chat?.messages?.length ?? 0,
       itemBuilder: (_, i) {
         final message = ApiChatMessage.fromData(api.chat.messages[i]);
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ChatBubble(
-              clipper: message.isMine
-                  ? ChatBubbleClipper4(type: BubbleType.sendBubble)
-                  : ChatBubbleClipper4(type: BubbleType.receiverBubble),
-              alignment: message.isMine ? Alignment.topRight : Alignment.topLeft,
-              margin: EdgeInsets.only(top: 20),
-              backGroundColor: Colors.blue,
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
-                ),
-                child: message.isImage
-                    ? CachedImage(message.text)
-                    : Text(
-                        api.chat.translateIfChatProtocol(message.text ?? message.protocol),
-                        textAlign: message.isMine ? TextAlign.right : TextAlign.left,
-                        style: TextStyle(color: Colors.white),
-                      ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(xs),
-              child: Text(
-                dateTimeFromTimeStamp(message.createdAt),
-                style: TextStyle(fontSize: 8),
-                textAlign: message.isMine ? TextAlign.right : TextAlign.left,
-              ),
-            )
-          ],
-        );
+        return message.isMine
+            ? GestureDetector(
+                child: ChatMessageViewWidget(
+                    message: message, onImageRenderCompelete: widget.onImageRenderCompelete),
+                onLongPress: () {
+                  print('long press');
+                },
+              )
+            : ChatMessageViewWidget(
+                message: message, onImageRenderCompelete: widget.onImageRenderCompelete);
       },
     );
   }
