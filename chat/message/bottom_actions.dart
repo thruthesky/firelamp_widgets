@@ -1,8 +1,7 @@
 import 'dart:async';
 
+import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:dalgona/firelamp_widgets/functions.dart';
-import 'package:dalgona/services/defines.dart';
-import 'package:dalgona/services/globals.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,12 +31,12 @@ class _ChatMessageButtomActionsState extends State<ChatMessageButtomActions> {
     // print(text);
     // @todo show spinner while sending messages
     try {
-      await api.chat.sendMessage(
+      await Api.instance.chat.sendMessage(
         text: text,
       );
 
       /// Send Push Notification Silently
-      api.chat.sendChatPushMessage(text);
+      Api.instance.chat.sendChatPushMessage(text);
     } catch (e) {
       // @todo show error on screen if there is any error.
       if (e == ERROR_EMPTY_TOKENS) {
@@ -61,7 +60,7 @@ class _ChatMessageButtomActionsState extends State<ChatMessageButtomActions> {
             value: progress,
           ),
         Padding(
-          padding: EdgeInsets.all(sm),
+          padding: EdgeInsets.all(Space.sm),
           child: Row(
             children: [
               /// Upload Icon Button
@@ -87,13 +86,13 @@ class _ChatMessageButtomActionsState extends State<ChatMessageButtomActions> {
                     );
 
                     /// send url to firebase
-                    await api.chat.sendMessage(
+                    await Api.instance.chat.sendMessage(
                       text: file.thumbnailUrl,
                     );
 
                     /// Send Push Notification Silently
-                    api.chat
-                        .sendChatPushMessage('${api?.chat?.otherUser?.nickname} send you a photo');
+                    Api.instance.chat.sendChatPushMessage(
+                        '${Api.instance?.chat?.otherUser?.nickname} send you a photo');
                   } catch (e) {
                     progress = 0;
                     onError(e);
