@@ -17,7 +17,7 @@ class FilesView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: Space.sm),
+        SizedBox(height: Space.xsm),
         Text(
           'Attached files',
           style: TextStyle(color: Colors.grey, fontSize: Space.xsm),
@@ -37,6 +37,7 @@ class FilesView extends StatelessWidget {
               ),
           ],
         ),
+        SizedBox(height: Space.md),
       ],
     );
   }

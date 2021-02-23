@@ -20,6 +20,7 @@ class PostPreview extends StatelessWidget {
             : t;
   }
 
+  /// TODO: MODE TO API
   bool get hasFiles {
     return post.files.isNotEmpty;
   }
@@ -39,8 +40,7 @@ class PostPreview extends StatelessWidget {
                 Container(
                   height: 80,
                   width: 100,
-                  child: 
-                  ClipRRect(
+                  child: ClipRRect(
                     child: CachedImage(post.files[0].url),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -68,7 +68,7 @@ class PostPreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PostMeta(post),
+                PostMeta(post, showAvatar: false),
                 Text(
                   '${post.postTitle}',
                   style: stylePostTitle,
