@@ -45,7 +45,7 @@ class _PostViewState extends State<PostView> {
               children: [
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: () => setState(() => widget.post.display = false),
+                  onTap: () => widget.onTitleTap,
                   child: Row(
                     children: [
                       UserAvatar(widget.post.profilePhotoUrl, size: 40),
@@ -68,7 +68,8 @@ class _PostViewState extends State<PostView> {
                 CommentList(post: widget.post, forum: widget.forum),
               ],
             )
-          : PostPreview(widget.post, onTap: () => setState(() => widget.post.display = true)),
+          // : PostPreview(widget.post, onTap: () => setState(() => widget.post.display = true)),
+          : PostPreview(widget.post, onTap: () => widget.onTitleTap),
     );
   }
 }
