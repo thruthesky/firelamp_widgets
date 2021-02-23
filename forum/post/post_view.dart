@@ -17,7 +17,8 @@ class PostView extends StatefulWidget {
     this.forum,
     this.actions,
     this.onTitleTap,
-    this.onError
+    this.open = false,
+    this.onError,
   }) : super(key: key);
 
   final ApiForum forum;
@@ -26,12 +27,20 @@ class PostView extends StatefulWidget {
   final List<Widget> actions;
   final Function onTitleTap;
   final Function onError;
+  final bool open;
 
   @override
   _PostViewState createState() => _PostViewState();
 }
 
 class _PostViewState extends State<PostView> {
+
+  bool get showContent {
+    if (widget.open) return true;
+    if (widget.post.display) return true;
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return RoundedBox(
@@ -39,13 +48,13 @@ class _PostViewState extends State<PostView> {
       padding: EdgeInsets.all(Space.xsm),
       boxColor: Colors.white,
       radius: 10,
-      child: widget.post.display
+      child: showContent
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: () => widget.onTitleTap,
+                  onTap: widget.onTitleTap,
                   child: Row(
                     children: [
                       UserAvatar(widget.post.profilePhotoUrl, size: 40),
@@ -64,12 +73,16 @@ class _PostViewState extends State<PostView> {
                 FilesView(postOrComment: widget.post),
                 Divider(),
                 Row(children: widget.actions),
-                CommentForm(post: widget.post, forum: widget.forum, comment: ApiComment(), onError: widget.onError),
+                CommentForm(
+                    post: widget.post,
+                    forum: widget.forum,
+                    comment: ApiComment(),
+                    onError: widget.onError),
                 CommentList(post: widget.post, forum: widget.forum),
               ],
             )
           // : PostPreview(widget.post, onTap: () => setState(() => widget.post.display = true)),
-          : PostPreview(widget.post, onTap: () => widget.onTitleTap),
+          : PostPreview(widget.post, onTap: widget.onTitleTap),
     );
   }
 }
