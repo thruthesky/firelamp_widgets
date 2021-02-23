@@ -13,6 +13,7 @@ class CommentForm extends StatefulWidget {
     this.comment,
     @required this.forum,
     this.onError,
+    this.onSuccess,
   }) : super(key: key);
 
   /// post of the comment
@@ -21,6 +22,7 @@ class CommentForm extends StatefulWidget {
   final ApiComment comment;
   final ApiForum forum;
   final Function onError;
+  final Function onSuccess;
 
   @override
   _CommentFormState createState() => _CommentFormState();
@@ -82,6 +84,7 @@ class _CommentFormState extends State<CommentForm> {
       if (widget.comment != null) comment.mode = CommentMode.none;
       setState(() => null);
       widget.forum.render();
+      if (widget.onSuccess != null) widget.onSuccess();
       // print('editeComment..: $editedComment');
     } catch (e) {
       setState(() => loading = false);
@@ -136,7 +139,8 @@ class _CommentFormState extends State<CommentForm> {
                 ),
               ),
               if (loading)
-                Padding(padding: EdgeInsets.all(Space.sm), child: Spinner(centered: false, size: 18)),
+                Padding(
+                    padding: EdgeInsets.all(Space.sm), child: Spinner(centered: false, size: 18)),
               if (canSubmit)
                 IconButton(
                   alignment: Alignment.center,

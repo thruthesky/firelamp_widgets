@@ -60,6 +60,7 @@ class _PostViewState extends State<PostView> {
                   child: widget.titleFirst ? title : meta,
                 ),
                 SizedBox(height: Space.xxs),
+
                 /// show only when `titleFirst` is `false`
                 if (!widget.titleFirst) title,
                 Padding(
@@ -68,15 +69,18 @@ class _PostViewState extends State<PostView> {
                       style: TextStyle(fontSize: Space.sm, wordSpacing: 2)),
                 ),
                 FilesView(postOrComment: widget.post),
+
                 /// show only when `titleFirst` is `true`
                 if (widget.titleFirst) meta,
                 Divider(),
                 Row(children: widget.actions),
                 CommentForm(
-                    post: widget.post,
-                    forum: widget.forum,
-                    comment: ApiComment(),
-                    onError: widget.onError),
+                  post: widget.post,
+                  forum: widget.forum,
+                  comment: ApiComment(),
+                  onError: widget.onError,
+                  onSuccess: () => setState(() {}),
+                ),
                 CommentList(post: widget.post, forum: widget.forum),
               ],
             )
