@@ -30,7 +30,7 @@ class CachedImage extends StatelessWidget {
       imageBuilder: (context, provider) {
         // execute your onLoad code here
         // print("Image has been loaded!");
-        Timer(Duration(milliseconds: 100), () => onLoadComplete());
+        if (onLoadComplete != null) Timer(Duration(milliseconds: 100), () => onLoadComplete());
         // Return the image that has built by hand.
         return Image(
           image: provider,
