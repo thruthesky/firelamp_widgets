@@ -80,7 +80,6 @@ class _PostViewState extends State<PostView> {
                 CommentList(post: widget.post, forum: widget.forum),
               ],
             )
-          // : PostPreview(widget.post, onTap: () => setState(() => widget.post.display = true)),
           : PostPreview(widget.post, onTap: widget.onTitleTap),
     );
   }
