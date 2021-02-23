@@ -8,12 +8,14 @@ class ForumBasicPostView extends StatefulWidget {
     this.post,
     this.meta,
     this.actions = const [],
+    this.onTap,
     Key key,
   }) : super(key: key);
 
   final ApiPost post;
   final Widget meta;
   final List<Widget> actions;
+  final Function onTap;
 
   @override
   _ForumBasicPostViewState createState() => _ForumBasicPostViewState();
@@ -25,8 +27,13 @@ class _ForumBasicPostViewState extends State<ForumBasicPostView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ForumBasicPostTitle(widget.post,
-            onTap: () => setState(() => widget.post.display = !widget.post.display)),
+        ForumBasicPostTitle(
+          widget.post,
+          onTap: widget.onTap,
+          // onTap: () => setState(
+          //       () => widget.post.display = !widget.post.display,
+          //     )
+        ),
         if (widget.post.display && widget.meta != null) widget.meta,
         if (widget.post.display) DisplayContent(widget.post),
         if (widget.post.display) Row(children: widget.actions),
