@@ -1,4 +1,5 @@
 import 'package:dalgona/firelamp_widgets/widgets/image.cache.dart';
+import 'package:dalgona/firelamp_widgets/widgets/image.network.dart';
 import 'package:dalgona/services/defines.dart';
 import 'package:dalgona/services/globals.dart';
 import 'package:dalgona/services/helper.functions.dart';
@@ -41,8 +42,9 @@ class _ChatMessageViewWidgetState extends State<ChatMessageViewWidget> {
               maxWidth: MediaQuery.of(context).size.width * 0.7,
             ),
             child: widget.message.isImage
-                ? CachedImage(widget.message.text,
-                    onImageRenderComplete: widget.onImageRenderCompelete)
+                ? CachedImage(
+                    widget.message.text,
+                  )
                 : Text(
                     api.chat
                         .translateIfChatProtocol(widget.message.text ?? widget.message.protocol),

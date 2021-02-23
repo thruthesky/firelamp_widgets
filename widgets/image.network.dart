@@ -1,0 +1,60 @@
+import 'package:dalgona/firelamp_widgets/widgets/spinner.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class ImageNetwork extends StatefulWidget {
+  ImageNetwork(
+    this.url, {
+    this.width,
+    this.height,
+    this.onImageRenderComplete,
+  });
+
+  final String url;
+  final double width;
+  final double height;
+  final Function onImageRenderComplete;
+
+  @override
+  _ImageNetworkState createState() => _ImageNetworkState();
+}
+
+class _ImageNetworkState extends State<ImageNetwork> {
+  bool _loading = true;
+  Image _image;
+  bool error = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _image = new Image.network(
+      widget.url,
+    );
+
+    final ImageStream stream = _image.image.resolve(ImageConfiguration());
+    ImageStreamListener listener = ImageStreamListener((ImageInfo info, bool syncCall) {
+      setState(() {
+        _loading = false;
+        if (widget.onImageRenderComplete != null) widget.onImageRenderComplete();
+      });
+      stream.removeListener(ImageStreamListener((ImageInfo info, bool syncCall) {}));
+    }, onError: (_, __) {
+      error = true;
+    });
+    stream.addListener(listener);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.url == null || error) {
+      return Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Icon(
+          Icons.error,
+          size: 64,
+        ),
+      );
+    }
+    return _loading ? Spinner() : _image;
+  }
+}
