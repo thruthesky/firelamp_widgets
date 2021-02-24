@@ -120,7 +120,9 @@ class _CommentViewState extends State<CommentView> {
                 parent: widget.comment,
                 comment: ApiComment(),
                 post: widget.post,
-                forum: widget.forum),
+                forum: widget.forum,
+                onSuccess: widget.onCommentEditSuccess,
+                ),
           if (widget.comment.mode == CommentMode.edit) ...[
             CommentForm(
               comment: widget.comment,
