@@ -140,13 +140,7 @@ class _CommentFormState extends State<CommentForm> {
               ),
               if (loading)
                 Padding(
-<<<<<<< HEAD
-                  padding: EdgeInsets.all(Space.sm),
-                  child: Spinner(centered: false, size: 18),
-                ),
-=======
                     padding: EdgeInsets.all(Space.sm), child: Spinner(centered: false, size: 18)),
->>>>>>> f4103ec94ee7d66b2a8685dbd9dfb71a118074eb
               if (canSubmit)
                 IconButton(
                   alignment: Alignment.center,
