@@ -7,9 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessageButtomActions extends StatefulWidget {
-  final Function onError;
-
   ChatMessageButtomActions({this.onError});
+  final Function onError;
 
   @override
   _ChatMessageButtomActionsState createState() => _ChatMessageButtomActionsState();
