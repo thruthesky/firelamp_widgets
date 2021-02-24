@@ -10,11 +10,13 @@ class CachedImage extends StatelessWidget {
     this.width,
     this.height,
     this.onLoadComplete,
+    this.fit = BoxFit.cover,
   });
   final String url;
   final double width;
   final double height;
   final Function onLoadComplete;
+  final BoxFit fit;
   @override
   Widget build(BuildContext context) {
     if (url == null) {
@@ -32,12 +34,9 @@ class CachedImage extends StatelessWidget {
         // print("Image has been loaded!");
         if (onLoadComplete != null) Timer(Duration(milliseconds: 100), () => onLoadComplete());
         // Return the image that has built by hand.
-        return Image(
-          image: provider,
-        );
+        return Image(image: provider, fit: fit);
       },
       imageUrl: url,
-      fit: BoxFit.cover,
       placeholder: (context, url) => Spinner(),
       errorWidget: (context, url, error) => Icon(Icons.error),
       width: width,

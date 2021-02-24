@@ -37,13 +37,10 @@ class PostPreview extends StatelessWidget {
             Stack(
               overflow: Overflow.visible,
               children: [
-                Container(
-                  height: 80,
+                CachedImage(
+                  post.files[0].url,
                   width: 100,
-                  child: ClipRRect(
-                    child: CachedImage(post.files[0].url),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
+                  height: 80,
                 ),
                 Positioned(
                   left: 10,
