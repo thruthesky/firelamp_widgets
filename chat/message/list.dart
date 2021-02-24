@@ -64,9 +64,9 @@ class _ChatMessageListWidgetState extends State<ChatMessageListWidget> {
         }
         if (value == 'edit') {
           // api.chat.editMessage(message);
-          print('how to edit?');
+          // print('how to edit?');
         }
-        print(value);
+        // print('value: value');
       });
     }
   }

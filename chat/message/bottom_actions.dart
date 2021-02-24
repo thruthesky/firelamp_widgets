@@ -68,7 +68,7 @@ class _ChatMessageButtomActionsState extends State<ChatMessageButtomActions> {
                 /// if progress is not 0, show loader.
                 icon: Icon(Icons.camera_alt),
                 onPressed: () async {
-                  print('upload and sending photo');
+                  // print('upload and sending photo');
                   try {
                     /// upload to php backend
                     ApiFile file = await imageUpload(
