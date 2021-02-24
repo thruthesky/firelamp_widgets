@@ -63,6 +63,9 @@ class _CommentViewState extends State<CommentView> {
     }
   }
 
+  bool get canCancel =>
+      widget.comment.mode == CommentMode.reply || widget.comment.mode == CommentMode.edit;
+
   @override
   Widget build(BuildContext context) {
     return RoundedBox(
@@ -120,19 +123,20 @@ class _CommentViewState extends State<CommentView> {
           ],
           if (widget.comment.mode == CommentMode.reply)
             CommentForm(
-                parent: widget.comment,
-                comment: ApiComment(),
-                post: widget.post,
-                forum: widget.forum,
-                onSuccess: widget.onCommentEditSuccess,
-                ),
-          if (widget.comment.mode == CommentMode.edit) ...[
+              parent: widget.comment,
+              comment: ApiComment(),
+              post: widget.post,
+              forum: widget.forum,
+              onSuccess: widget.onCommentEditSuccess,
+            ),
+          if (widget.comment.mode == CommentMode.edit)
             CommentForm(
               comment: widget.comment,
               post: widget.post,
               forum: widget.forum,
               onSuccess: widget.onCommentEditSuccess,
             ),
+          if (canCancel)
             IconButton(
               icon: Icon(Icons.close, color: Colors.redAccent),
               onPressed: () {
@@ -141,7 +145,6 @@ class _CommentViewState extends State<CommentView> {
                 });
               },
             ),
-          ],
         ],
       ),
     );
