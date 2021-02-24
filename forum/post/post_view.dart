@@ -81,6 +81,7 @@ class _PostViewState extends State<PostView> {
                   forum: widget.forum,
                   comment: ApiComment(),
                   onError: widget.onError,
+                  onSuccess: () => setState(() {}),
                 ),
                 CommentList(post: widget.post, forum: widget.forum),
               ],
