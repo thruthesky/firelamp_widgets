@@ -45,7 +45,7 @@ class _ChatMessageViewWidgetState extends State<ChatMessageViewWidget> {
                     widget.message.text,
                     onLoadComplete: () {
                       if (widget.message.text == Api.instance.chat.lastImage) {
-                        print('load compelete for the last image only: ${widget.message.text}');
+                        // print('load compelete for the last image only: ${widget.message.text}');
                         widget.onImageRenderCompelete();
                       }
                     },
