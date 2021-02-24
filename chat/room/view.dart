@@ -6,7 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatRoomViewWidget extends StatefulWidget {
-  ChatRoomViewWidget(this.room, {this.onTap});
+  ChatRoomViewWidget(
+    this.room, {
+    this.onTap,
+  });
 
   final ApiChatUserRoom room;
   final Function onTap;

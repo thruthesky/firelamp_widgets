@@ -1,6 +1,6 @@
 import 'package:dalgona/firelamp_widgets/chat/message/bottom_actions.dart';
 import 'package:dalgona/firelamp_widgets/chat/message/view.dart';
-import 'package:dalgona/services/globals.dart';
+import 'package:dalgona/firelamp_widgets/widgets/spinner.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +8,11 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class ChatMessageListWidget extends StatefulWidget {
   ChatMessageListWidget({
-    this.scrollController,
     this.onImageRenderCompelete,
     this.onError,
     Key key,
   }) : super(key: key);
 
-  final ScrollController scrollController;
   final Function onImageRenderCompelete;
   final Function onError;
 
@@ -24,6 +22,44 @@ class ChatMessageListWidget extends StatefulWidget {
 
 class _ChatMessageListWidgetState extends State<ChatMessageListWidget> {
   var _tapPosition;
+
+  @override
+  Widget build(BuildContext context) {
+    return Api.instance.chat.loading
+        ? Spinner()
+        : Column(
+            children: [
+              Expanded(
+                child: KeyboardDismissOnTap(
+                  child: ListView.builder(
+                    padding: EdgeInsets.all(0),
+                    controller: Api.instance.chat.scrollController,
+                    itemCount: Api.instance.getChatMessagesCount,
+                    itemBuilder: (_, i) {
+                      final message = ApiChatMessage.fromData(Api.instance.chat.messages[i]);
+                      return message.isMine ? myMessage(message) : otherMessage(message);
+                    },
+                  ),
+                ),
+              ),
+              ChatMessageButtomActions(onError: widget.onError)
+            ],
+          );
+  }
+
+  Widget myMessage(ApiChatMessage message) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      child: ChatMessageViewWidget(message: message, onImageRenderCompelete: imageRenderComplete),
+      onTapDown: _storePosition,
+      onLongPress: () => onLongPressShowMenu(message),
+    );
+  }
+
+  Widget otherMessage(ApiChatMessage message) {
+    return ChatMessageViewWidget(message: message, onImageRenderCompelete: imageRenderComplete);
+  }
+
   void _storePosition(TapDownDetails details) {
     _tapPosition = details.globalPosition;
   }
@@ -60,46 +96,20 @@ class _ChatMessageListWidgetState extends State<ChatMessageListWidget> {
       ).then((value) {
         if (value == null) return;
         if (value == 'delete') {
-          api.chat.deleteMessage(message);
+          Api.instance.chat.deleteMessage(message);
         }
         if (value == 'edit') {
-          // api.chat.editMessage(message);
-          print('how to edit?');
+          Api.instance.chat.editMessage(message);
         }
-        print(value);
       });
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: KeyboardDismissOnTap(
-            child: ListView.builder(
-              padding: EdgeInsets.all(0),
-              controller: widget.scrollController,
-              itemCount: api?.chat?.messages?.length ?? 0,
-              itemBuilder: (_, i) {
-                final message = ApiChatMessage.fromData(api.chat.messages[i]);
-                return message.isMine
-                    ? GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        child: ChatMessageViewWidget(
-                            message: message,
-                            onImageRenderCompelete: widget.onImageRenderCompelete),
-                        onTapDown: _storePosition,
-                        onLongPress: () => onLongPressShowMenu(message),
-                      )
-                    : ChatMessageViewWidget(
-                        message: message, onImageRenderCompelete: widget.onImageRenderCompelete);
-              },
-            ),
-          ),
-        ),
-        ChatMessageButtomActions(onError: widget.onError)
-      ],
-    );
+  void imageRenderComplete() {
+    if (Api.instance.chat.atBottom || Api.instance.chat.pageNo == 1) {
+      Api.instance.chat.lastImage = '';
+      Api.instance.chat.scrollToBottom();
+    }
+    if (widget.onImageRenderCompelete != null) widget.onImageRenderCompelete();
   }
 }

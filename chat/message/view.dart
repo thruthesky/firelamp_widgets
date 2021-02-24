@@ -60,10 +60,29 @@ class _ChatMessageViewWidgetState extends State<ChatMessageViewWidget> {
         ),
         Container(
           padding: EdgeInsets.all(xs),
-          child: Text(
-            dateTimeFromTimeStamp(widget.message.createdAt),
-            style: TextStyle(fontSize: 8),
-            textAlign: widget.message.isMine ? TextAlign.right : TextAlign.left,
+          child: Row(
+            mainAxisAlignment:
+                widget.message.isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+            children: [
+              Api.instance.chat.isMessageOnEdit(widget.message)
+                  ? GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: sm),
+                        child: Text(
+                          'Edit Cancel',
+                          style: TextStyle(fontSize: 8),
+                        ),
+                      ),
+                      onTap: Api.instance.chat.cancelEdit,
+                    )
+                  : SizedBox(),
+              Text(
+                dateTimeFromTimeStamp(widget.message.createdAt),
+                style: TextStyle(fontSize: 8),
+                // textAlign: widget.message.isMine ? TextAlign.right : TextAlign.left,
+              ),
+            ],
           ),
         )
       ],

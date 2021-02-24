@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:dalgona/firelamp_widgets/functions.dart';
+import 'package:dalgona/firelamp_widgets/widgets/spinner.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,35 +16,45 @@ class ChatMessageButtomActions extends StatefulWidget {
 }
 
 class _ChatMessageButtomActionsState extends State<ChatMessageButtomActions> {
-  final textController = TextEditingController();
-
   /// upload progress
   double progress = 0;
 
+  /// show loader if sending is true
+  bool sending = false;
+
   // send a message to the room users
   sendMessage() async {
-    String text = textController.text;
-    if (text.isEmpty) return;
+    String text = Api.instance.chat.textController.text;
+    if (text.isEmpty || sending) return;
+    sending = true;
 
-    textController.text = '';
+    Api.instance.chat.textController.text = '';
 
-    // print(text);
-    // @todo show spinner while sending messages
     try {
-      await Api.instance.chat.sendMessage(
-        text: text,
-      );
+      if (Api.instance.chat.isMessageEdit == null) {
+        await Api.instance.chat.sendMessage(
+          text: text,
+        );
 
-      /// Send Push Notification Silently
-      Api.instance.chat.sendChatPushMessage(text);
-    } catch (e) {
-      // @todo show error on screen if there is any error.
-      if (e == ERROR_EMPTY_TOKENS) {
-        // print('No tokens to sends. It is not a critical error');
+        /// Send Push Notification Silently
+        Api.instance.chat.sendChatPushMessage(text).catchError((e) {
+          if (e == ERROR_EMPTY_TOKENS) {
+            // print('No tokens to sends. It is not a critical error');
+          } else {
+            onError(e);
+          }
+        });
       } else {
-        onError(e);
+        await Api.instance.chat.sendMessage(
+          text: text,
+        );
       }
+      sending = false;
+    } catch (e) {
+      sending = false;
+      onError(e);
     }
+    Api.instance.chat.notify();
   }
 
   onError(dynamic e) {
@@ -63,44 +74,10 @@ class _ChatMessageButtomActionsState extends State<ChatMessageButtomActions> {
           child: Row(
             children: [
               /// Upload Icon Button
-              IconButton(
-                /// if progress is not 0, show loader.
-                icon: Icon(Icons.camera_alt),
-                onPressed: () async {
-                  print('upload and sending photo');
-                  try {
-                    /// upload to php backend
-                    ApiFile file = await imageUpload(
-                      onProgress: (p) => setState(
-                        () {
-                          if (p == 100) {
-                            Timer(Duration(milliseconds: 400), () {
-                              progress = 0;
-                            });
-                          } else {
-                            progress = p / 100;
-                          }
-                        },
-                      ),
-                    );
-
-                    /// send url to firebase
-                    await Api.instance.chat.sendMessage(
-                      text: file.thumbnailUrl,
-                    );
-
-                    /// Send Push Notification Silently
-                    Api.instance.chat.sendChatPushMessage(
-                        '${Api.instance?.chat?.otherUser?.nickname} send you a photo');
-                  } catch (e) {
-                    progress = 0;
-                    onError(e);
-                  }
-                },
-              ),
+              uploadIconButton(),
               Expanded(
                 child: TextFormField(
-                  controller: textController,
+                  controller: Api.instance.chat.textController,
                   onEditingComplete: sendMessage,
                   decoration: InputDecoration(
                     hintText: "Please enter your message.",
@@ -120,14 +97,64 @@ class _ChatMessageButtomActionsState extends State<ChatMessageButtomActions> {
                   ),
                 ),
               ),
-              IconButton(
-                onPressed: sendMessage,
-                icon: Icon(Icons.send),
-              ),
+              sending
+                  ? Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Spinner(),
+                    )
+                  : IconButton(
+                      onPressed: sendMessage,
+                      icon: Icon(Icons.send),
+                    ),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget uploadIconButton() {
+    return IconButton(
+      /// if progress is not 0, show loader.
+      icon: Icon(Icons.camera_alt),
+      onPressed: () async {
+        print('upload and sending photo');
+        try {
+          /// upload to php backend
+          ApiFile file = await imageUpload(
+            onProgress: (p) => setState(
+              () {
+                if (p == 100) {
+                  Timer(Duration(milliseconds: 400), () {
+                    progress = 0;
+                  });
+                } else {
+                  progress = p / 100;
+                }
+              },
+            ),
+          );
+
+          /// send url to firebase
+          await Api.instance.chat.sendMessage(
+            text: file.thumbnailUrl,
+          );
+
+          /// Send Push Notification Silently
+          Api.instance.chat
+              .sendChatPushMessage('${Api.instance?.chat?.otherUser?.nickname} send you a photo')
+              .catchError((e) {
+            if (e == ERROR_EMPTY_TOKENS) {
+              // print('No tokens to sends. It is not a critical error');
+            } else {
+              onError(e);
+            }
+          });
+        } catch (e) {
+          progress = 0;
+          onError(e);
+        }
+      },
     );
   }
 }
