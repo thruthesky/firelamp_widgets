@@ -1,3 +1,4 @@
+import 'package:dalgona/firelamp_widgets/user/user_avatar.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class ForumBasicPostTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: UserAvatar(post.profilePhotoUrl),
       title: Text(post.postTitle),
       onTap: onTap,
     );

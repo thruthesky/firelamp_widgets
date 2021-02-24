@@ -9,8 +9,8 @@ import 'package:dalgona/firelamp_widgets/forum/comment/comment_form.dart';
 import 'package:dalgona/firelamp_widgets/forum/comment/comment_list.dart';
 import 'package:dalgona/firelamp_widgets/forum/shared/files_view.dart';
 
-class PostView extends StatefulWidget {
-  const PostView({
+class PostViewWithThumbnailAndAvatar extends StatefulWidget {
+  const PostViewWithThumbnailAndAvatar({
     Key key,
     this.post,
     this.forum,
@@ -30,10 +30,10 @@ class PostView extends StatefulWidget {
   final bool open;
 
   @override
-  _PostViewState createState() => _PostViewState();
+  _PostViewWithThumbnailAndAvatarState createState() => _PostViewWithThumbnailAndAvatarState();
 }
 
-class _PostViewState extends State<PostView> {
+class _PostViewWithThumbnailAndAvatarState extends State<PostViewWithThumbnailAndAvatar> {
   bool get showContent {
     if (widget.open) return true;
     if (widget.post.display) return true;
@@ -65,8 +65,10 @@ class _PostViewState extends State<PostView> {
                 if (!widget.titleFirst) title,
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: Space.sm),
-                  child: SelectableText('${widget.post.postContent}',
-                      style: TextStyle(fontSize: Space.sm, wordSpacing: 2)),
+                  child: SelectableText(
+                    '${widget.post.postContent}',
+                    style: TextStyle(fontSize: Space.sm, wordSpacing: 2),
+                  ),
                 ),
                 FilesView(postOrComment: widget.post),
 

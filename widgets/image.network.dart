@@ -37,7 +37,7 @@ class _ImageNetworkState extends State<ImageNetwork> {
       setState(() {
         _loading = false;
         if (widget.onImageRenderComplete != null) {
-          print('completed!');
+          // print('completed!');
           widget.onImageRenderComplete();
           stream.removeListener(listener);
         }

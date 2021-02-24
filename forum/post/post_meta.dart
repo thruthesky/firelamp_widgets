@@ -32,10 +32,10 @@ class PostMeta extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          if (showAvatar)
-          UserAvatar(post.profilePhotoUrl, size: 40),
-          SizedBox(width: Space.sm),
-          // PostMeta(post),
+          if (showAvatar) ...[
+            UserAvatar(post.profilePhotoUrl, size: 40),
+            SizedBox(width: Space.sm),
+          ],
           if (post.display)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
