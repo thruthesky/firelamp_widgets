@@ -44,6 +44,7 @@ class _CommentListState extends State<CommentList> {
                     forum: widget.forum,
                     onError: widget.onError,
                     onCommentEditSuccess: () => setState(() {}),
+                    onCommentDeleteSuccess: () => setState(() {}),
                   ),
               ],
             )

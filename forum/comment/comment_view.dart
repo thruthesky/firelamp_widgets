@@ -19,6 +19,7 @@ class CommentView extends StatefulWidget {
     this.onError,
     @required this.forum,
     this.onCommentEditSuccess,
+    this.onCommentDeleteSuccess,
   }) : super(key: key);
 
   final ApiComment comment;
@@ -26,6 +27,7 @@ class CommentView extends StatefulWidget {
   final ApiForum forum;
   final Function onError;
   final Function onCommentEditSuccess;
+  final Function onCommentDeleteSuccess;
 
   @override
   _CommentViewState createState() => _CommentViewState();
@@ -52,6 +54,7 @@ class _CommentViewState extends State<CommentView> {
       try {
         await Api.instance.deleteComment(widget.comment, widget.post);
         widget.forum.render();
+        if (widget.onCommentDeleteSuccess != null) widget.onCommentDeleteSuccess();
       } catch (e) {
         if (widget.onError != null) {
           widget.onError(e);
