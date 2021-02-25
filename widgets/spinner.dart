@@ -10,17 +10,19 @@ class Spinner extends StatelessWidget {
     this.loading = true,
     this.centered = true,
     this.valueColor = Colors.blue,
+    this.padding,
   }) : super(key: key);
 
   final double size;
   final bool loading;
   final bool centered;
   final Color valueColor;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
     if (loading == false) return SizedBox.shrink();
-    final spinner = SizedBox(
+    Widget spinner = SizedBox(
       width: size,
       height: size,
       child: Platform.isAndroid
@@ -29,6 +31,10 @@ class Spinner extends StatelessWidget {
             )
           : CupertinoActivityIndicator(),
     );
+
+    if (padding != null) {
+      spinner = Padding(padding: padding, child: spinner);
+    }
 
     return centered ? Center(child: spinner) : spinner;
   }
