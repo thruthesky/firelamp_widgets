@@ -71,7 +71,7 @@ class _ChatMessageViewWidgetState extends State<ChatMessageViewWidget> {
                         padding: const EdgeInsets.only(right: sm),
                         child: Text(
                           'Edit Cancel',
-                          style: TextStyle(fontSize: 8),
+                          style: TextStyle(fontSize: 8, color: Colors.red),
                         ),
                       ),
                       onTap: Api.instance.chat.cancelEdit,
