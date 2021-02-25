@@ -46,13 +46,11 @@ class _PostViewWithThumbnailAndAvatarState extends State<PostViewWithThumbnailAn
     Widget meta = PostMeta(widget.post, showAvatar: true);
 
     return RoundedBox(
-      margin: EdgeInsets.all(Space.xs),
       padding: EdgeInsets.all(Space.sm),
       boxColor: Colors.white,
       radius: 10,
       child: showContent
           ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
