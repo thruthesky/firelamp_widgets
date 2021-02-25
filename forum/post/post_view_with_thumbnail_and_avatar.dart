@@ -51,6 +51,7 @@ class _PostViewWithThumbnailAndAvatarState extends State<PostViewWithThumbnailAn
       radius: 10,
       child: showContent
           ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
