@@ -26,7 +26,10 @@ class _ChatRoomViewWidgetState extends State<ChatRoomViewWidget> {
         widget.room.profilePhotoUrl ?? '',
       ),
       title: Text(widget.room.displayName ?? ''),
-      subtitle: Text(widget.room.text ?? ''),
+      subtitle: Text(
+        widget.room.text ?? '',
+        overflow: TextOverflow.ellipsis,
+      ),
       trailing: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

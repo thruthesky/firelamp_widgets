@@ -4,12 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Spinner extends StatelessWidget {
-  const Spinner({Key key, this.size = 24, this.loading = true, this.centered = true})
-      : super(key: key);
+  const Spinner({
+    Key key,
+    this.size = 24,
+    this.loading = true,
+    this.centered = true,
+    this.valueColor = Colors.blue,
+  }) : super(key: key);
 
   final double size;
   final bool loading;
   final bool centered;
+  final Color valueColor;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,11 @@ class Spinner extends StatelessWidget {
     final spinner = SizedBox(
       width: size,
       height: size,
-      child: Platform.isAndroid ? CircularProgressIndicator() : CupertinoActivityIndicator(),
+      child: Platform.isAndroid
+          ? CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(valueColor),
+            )
+          : CupertinoActivityIndicator(),
     );
 
     return centered ? Center(child: spinner) : spinner;
