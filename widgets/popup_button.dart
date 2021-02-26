@@ -6,7 +6,7 @@ typedef OnSelectedFunction(dynamic selected);
 class PopUpButton extends StatelessWidget {
   final OnSelectedFunction onSelected;
   final List<PopupMenuItem> items;
-  final Icon icon;
+  final Widget icon;
 
   PopUpButton({
     @required this.items,
