@@ -46,7 +46,7 @@ class _ForumBasicPostEditGoldenAgeState extends State<ForumBasicPostEditGoldenAg
   void initState() {
     super.initState();
     if (widget.post == null)
-      post = ApiPost(category: widget.category);
+      post = ApiPost(categoryIdx: widget.category);
     else
       post = widget.post;
   }

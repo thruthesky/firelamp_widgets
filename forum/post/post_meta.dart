@@ -21,11 +21,11 @@ class PostMeta extends StatelessWidget {
     );
 
     List<Widget> otherMeta = [
-      Text('${post.shortDateTime}', style: TextStyle(fontSize: Space.xsm)),
+      Text('${post.createdAt}', style: TextStyle(fontSize: Space.xsm)),
       SizedBox(width: Space.xs),
       Icon(Icons.circle, size: Space.xxs, color: Colors.blueAccent),
       SizedBox(width: Space.xs),
-      Text('${post.category}', style: TextStyle(fontSize: Space.xsm)),
+      Text('${post.categoryIdx}', style: TextStyle(fontSize: Space.xsm)),
       SizedBox(width: Space.xs),
     ];
 
