@@ -16,7 +16,7 @@ class ForumBasicPostTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: UserAvatar(post.profilePhotoUrl),
-      title: Text(post.postTitle),
+      title: Text(post.title),
       onTap: onTap,
     );
   }

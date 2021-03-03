@@ -52,8 +52,8 @@ class _ForumBasicPostEditGoldenAgeState extends State<ForumBasicPostEditGoldenAg
   }
 
   bool get canSubmit {
-    if (post.postTitle == '') return false;
-    if (post.postContent == '' && post.files.length == 0) return false;
+    if (post.title == '') return false;
+    if (post.content == '' && post.files.length == 0) return false;
     return true;
   }
 
@@ -80,13 +80,13 @@ class _ForumBasicPostEditGoldenAgeState extends State<ForumBasicPostEditGoldenAg
             child: Column(
             children: [
               TextFormField(
-                initialValue: post.postTitle,
-                onChanged: (text) => setState(() => post.postTitle = text),
+                initialValue: post.title,
+                onChanged: (text) => setState(() => post.title = text),
                 decoration: InputDecoration(labelText: '제목을 입력하세요.'),
               ),
               TextFormField(
-                initialValue: post.postContent,
-                onChanged: (text) => setState(() => post.postContent = text),
+                initialValue: post.content,
+                onChanged: (text) => setState(() => post.content = text),
                 decoration: InputDecoration(labelText: '내용을 입력하세요.'),
                 maxLines: 5,
               ),

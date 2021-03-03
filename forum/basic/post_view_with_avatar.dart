@@ -56,7 +56,7 @@ class DisplayContent extends StatelessWidget {
                 children: [
                   for (final file in post.files)
                     Image.network(
-                      file.thumbnailUrl,
+                      file.thumbnailUrl ?? file.url,
                       width: 100,
                       height: 100,
                     ),
@@ -67,7 +67,7 @@ class DisplayContent extends StatelessWidget {
             padding: EdgeInsets.all(Space.sm),
             width: double.infinity,
             color: Colors.grey[100],
-            child: Text(post.postContent),
+            child: Text(post.content),
           ),
         ],
       ),

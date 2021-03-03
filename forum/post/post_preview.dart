@@ -67,14 +67,14 @@ class PostPreview extends StatelessWidget {
               children: [
                 PostMeta(post, showAvatar: false),
                 Text(
-                  '${post.postTitle}',
+                  '${post.title}',
                   style: stylePostTitle,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: Space.xxs),
                 Text(
-                  '${post.postContent}',
+                  '${post.content}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

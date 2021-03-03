@@ -58,9 +58,9 @@ class _PostFormState extends State<PostForm> {
 
     if (Api.instance.notLoggedIn) return onError("Login First");
     try {
-      final editedPost = await Api.instance.editPost(
-        id: post.id,
-        category: widget.forum.category,
+      final editedPost = await Api.instance.postEdit(
+        idx: post.idx,
+        categoryId: widget.forum.category,
         title: title.text,
         content: content.text,
         files: post.files,
@@ -84,8 +84,8 @@ class _PostFormState extends State<PostForm> {
     super.initState();
     // print('_PostFormState::initState()');
     post = widget.forum.postInEdit;
-    title.text = post.postTitle;
-    content.text = post.postContent;
+    title.text = post.title;
+    content.text = post.content;
   }
 
   @override

@@ -42,7 +42,7 @@ class _PostViewWithThumbnailAndAvatarState extends State<PostViewWithThumbnailAn
 
   @override
   Widget build(BuildContext context) {
-    Widget title = Text('${widget.post.postTitle}', style: stylePostTitle);
+    Widget title = Text('${widget.post.title}', style: stylePostTitle);
     Widget meta = PostMeta(widget.post, showAvatar: true);
 
     return RoundedBox(
@@ -65,7 +65,7 @@ class _PostViewWithThumbnailAndAvatarState extends State<PostViewWithThumbnailAn
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: Space.sm),
                   child: SelectableText(
-                    '${widget.post.postContent}',
+                    '${widget.post.content}',
                     style: TextStyle(fontSize: Space.sm, wordSpacing: 2),
                   ),
                 ),

@@ -48,8 +48,8 @@ class _ForumBasicPostEditState extends State<ForumBasicPostEdit> {
   }
 
   bool get canSubmit {
-    if (post.postTitle == '') return false;
-    if (post.postContent == '' && post.files.length == 0) return false;
+    if (post.title == '') return false;
+    if (post.content == '' && post.files.length == 0) return false;
     return true;
   }
 
@@ -59,11 +59,11 @@ class _ForumBasicPostEditState extends State<ForumBasicPostEdit> {
         child: Column(
       children: [
         TextField(
-          onChanged: (text) => setState(() => post.postTitle = text),
+          onChanged: (text) => setState(() => post.title = text),
           decoration: InputDecoration(labelText: '제목을 입력하세요.'),
         ),
         TextField(
-          onChanged: (text) => setState(() => post.postContent = text),
+          onChanged: (text) => setState(() => post.content = text),
           decoration: InputDecoration(labelText: '내용을 입력하세요.'),
           maxLines: 5,
         ),
