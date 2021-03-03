@@ -10,10 +10,10 @@ class CommentContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return comment.commentContent.isNotEmpty
+    return comment.content.isNotEmpty
         ? Padding(
           padding: EdgeInsets.only(top: Space.sm),
-            child: SelectableText('${comment.commentContent}'),
+            child: SelectableText('${comment.content}'),
           )
         : SizedBox.shrink();
   }

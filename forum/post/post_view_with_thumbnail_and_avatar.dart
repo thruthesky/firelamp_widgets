@@ -42,7 +42,8 @@ class _PostViewWithThumbnailAndAvatarState extends State<PostViewWithThumbnailAn
 
   @override
   Widget build(BuildContext context) {
-    Widget title = Text('${widget.post.title}', style: stylePostTitle);
+    Widget title =
+        Text('${widget.post.title != '' ? widget.post.title : 'No title'}', style: stylePostTitle);
     Widget meta = PostMeta(widget.post, showAvatar: true);
 
     return RoundedBox(

@@ -13,7 +13,7 @@ class CommentMeta extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${comment.commentAuthor}',
+            '${comment.authorName}',
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: Space.sm,
@@ -27,7 +27,7 @@ class CommentMeta extends StatelessWidget {
                 color: Colors.blueAccent,
               ),
               SizedBox(width: Space.xs),
-              Text('${comment.shortDateTime}'),
+              Text('${comment.createdAt}'),
             ],
           ),
         ],
