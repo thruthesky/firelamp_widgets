@@ -43,7 +43,7 @@ class _SearchBarState extends State<SearchBar> {
     subscription =
         input.debounceTime(Duration(milliseconds: 500)).distinct((a, b) => a == b).listen((value) {
       searchKey = value;
-      widget.onSearch(value);
+      if (widget.onSearch != null) widget.onSearch(value);
     });
   }
 
@@ -83,7 +83,9 @@ class _SearchBarState extends State<SearchBar> {
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(Icons.search),
-                        onPressed: () => widget.onSearch(searchKey),
+                        onPressed: () {
+                          widget.onSearch(searchKey);
+                        },
                       ),
                     ),
                   ),
