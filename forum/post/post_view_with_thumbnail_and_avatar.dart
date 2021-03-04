@@ -82,7 +82,11 @@ class _PostViewWithThumbnailAndAvatarState extends State<PostViewWithThumbnailAn
                   onError: widget.onError,
                   onSuccess: () => setState(() {}),
                 ),
-                CommentList(post: widget.post, forum: widget.forum),
+                CommentList(
+                  post: widget.post,
+                  forum: widget.forum,
+                  onError: widget.onError,
+                ),
               ],
             )
           : PostPreview(widget.post, onTap: widget.onTitleTap),
