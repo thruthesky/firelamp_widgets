@@ -68,11 +68,12 @@ class _CommentFormState extends State<CommentForm> {
     if (Api.instance.notLoggedIn) return onError("Login First");
 
     try {
-      final editedComment = await Api.instance.editComment(
+      final editedComment = await Api.instance.commentEdit(
+        idx: comment?.idx,
         content: content.text,
-        parent: widget.parent,
+        rootIdx: widget.post.idx.toString(),
+        parentIdx: widget.parent != null ? widget.parent.idx.toString() : widget.post.idx.toString(),
         comment: comment,
-        post: widget.post,
         files: comment.files,
       );
 
@@ -102,7 +103,7 @@ class _CommentFormState extends State<CommentForm> {
   void initState() {
     super.initState();
     comment = widget.comment;
-    content.text = comment.commentContent;
+    content.text = comment.content;
   }
 
   @override

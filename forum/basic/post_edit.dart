@@ -44,7 +44,7 @@ class _ForumBasicPostEditState extends State<ForumBasicPostEdit> {
   @override
   void initState() {
     super.initState();
-    post = ApiPost(category: widget.category);
+    post = ApiPost(categoryIdx: widget.category);
   }
 
   bool get canSubmit {
@@ -125,7 +125,7 @@ class _ForumBasicPostEditState extends State<ForumBasicPostEdit> {
                       ? () async {
                           try {
                             // print('req: $post');
-                            ApiPost re = await Api.instance.editPost(post: post);
+                            ApiPost re = await Api.instance.postEdit(post: post);
                             widget.onSuccess(re);
                           } catch (e) {
                             widget.onError(e);
