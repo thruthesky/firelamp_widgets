@@ -19,6 +19,7 @@ class CachedImage extends StatelessWidget {
   final BoxFit fit;
   @override
   Widget build(BuildContext context) {
+    print('---> src: $url');
     if (url == null) {
       return Padding(
         padding: EdgeInsets.all(16.0),
