@@ -53,8 +53,8 @@ class _CommentViewState extends State<CommentView> {
 
       try {
         await Api.instance.deleteComment(widget.comment, widget.post);
-        widget.forum.render();
         if (widget.onCommentDeleteSuccess != null) widget.onCommentDeleteSuccess();
+        widget.forum.render();
       } catch (e) {
         if (widget.onError != null) {
           widget.onError(e);
@@ -68,85 +68,87 @@ class _CommentViewState extends State<CommentView> {
 
   @override
   Widget build(BuildContext context) {
-    return RoundedBox(
-      padding: EdgeInsets.all(Space.sm),
-      margin: EdgeInsets.only(top: Space.sm, left: Space.sm * (widget.comment.depth - 1)),
-      boxColor: Colors.grey[200],
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              UserAvatar(widget.comment.profilePhotoUrl, size: 40),
-              SizedBox(width: Space.xs),
-              CommentMeta(widget.comment),
-            ],
-          ),
-          if (widget.comment.mode == CommentMode.none ||
-              widget.comment.mode == CommentMode.reply) ...[
-            CommentContent(widget.comment),
-            FilesView(postOrComment: widget.comment),
-            Divider(),
-            Row(children: [
-              TextButton(
-                child: Text(widget.comment.mode == CommentMode.reply ? 'Cancel' : 'Reply'),
-                onPressed: () {
-                  setState(() {
-                    widget.comment.mode = widget.comment.mode == CommentMode.reply
-                        ? CommentMode.none
-                        : CommentMode.reply;
-                  });
-                },
-              ),
-              if (widget.forum.showLike) VoteButton(postOrComment: widget.comment),
-              if (widget.forum.showDislike)
-                VoteButton(postOrComment: widget.comment, isLike: false),
-              Spacer(),
-              if (widget.comment.isMine)
-                PopUpButton(items: [
-                  PopupMenuItem(
-                      child: Row(children: [
-                        Icon(Icons.edit, size: Space.sm, color: Colors.greenAccent),
-                        SizedBox(width: Space.xs),
-                        Text('Edit')
-                      ]),
-                      value: 'edit'),
-                  PopupMenuItem(
-                      child: Row(children: [
-                        Icon(Icons.delete, size: Space.sm, color: Colors.redAccent),
-                        SizedBox(width: Space.xs),
-                        Text('Delete')
-                      ]),
-                      value: 'delete')
-                ], onSelected: onPopupMenuItemSelected)
-            ]),
-          ],
-          if (widget.comment.mode == CommentMode.reply)
-            CommentForm(
-              parent: widget.comment,
-              comment: ApiComment(),
-              post: widget.post,
-              forum: widget.forum,
-              onSuccess: widget.onCommentEditSuccess,
+    return widget.comment.isDeleted
+        ? SizedBox.shrink()
+        : RoundedBox(
+            padding: EdgeInsets.all(Space.sm),
+            margin: EdgeInsets.only(top: Space.sm, left: Space.sm * (widget.comment.depth - 1)),
+            boxColor: Colors.grey[200],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    UserAvatar(widget.comment.profilePhotoUrl, size: 40),
+                    SizedBox(width: Space.xs),
+                    CommentMeta(widget.comment),
+                  ],
+                ),
+                if (widget.comment.mode == CommentMode.none ||
+                    widget.comment.mode == CommentMode.reply) ...[
+                  CommentContent(widget.comment),
+                  FilesView(postOrComment: widget.comment),
+                  Divider(),
+                  Row(children: [
+                    TextButton(
+                      child: Text(widget.comment.mode == CommentMode.reply ? 'Cancel' : 'Reply'),
+                      onPressed: () {
+                        setState(() {
+                          widget.comment.mode = widget.comment.mode == CommentMode.reply
+                              ? CommentMode.none
+                              : CommentMode.reply;
+                        });
+                      },
+                    ),
+                    if (widget.forum.showLike) VoteButton(postOrComment: widget.comment),
+                    if (widget.forum.showDislike)
+                      VoteButton(postOrComment: widget.comment, isLike: false),
+                    Spacer(),
+                    if (widget.comment.isMine)
+                      PopUpButton(items: [
+                        PopupMenuItem(
+                            child: Row(children: [
+                              Icon(Icons.edit, size: Space.sm, color: Colors.greenAccent),
+                              SizedBox(width: Space.xs),
+                              Text('Edit')
+                            ]),
+                            value: 'edit'),
+                        PopupMenuItem(
+                            child: Row(children: [
+                              Icon(Icons.delete, size: Space.sm, color: Colors.redAccent),
+                              SizedBox(width: Space.xs),
+                              Text('Delete')
+                            ]),
+                            value: 'delete')
+                      ], onSelected: onPopupMenuItemSelected)
+                  ]),
+                ],
+                if (widget.comment.mode == CommentMode.reply)
+                  CommentForm(
+                    parent: widget.comment,
+                    comment: ApiComment(),
+                    post: widget.post,
+                    forum: widget.forum,
+                    onSuccess: widget.onCommentEditSuccess,
+                  ),
+                if (widget.comment.mode == CommentMode.edit)
+                  CommentForm(
+                    comment: widget.comment,
+                    post: widget.post,
+                    forum: widget.forum,
+                    onSuccess: widget.onCommentEditSuccess,
+                  ),
+                if (canCancel)
+                  IconButton(
+                    icon: Icon(Icons.close, color: Colors.redAccent),
+                    onPressed: () {
+                      setState(() {
+                        widget.comment.mode = CommentMode.none;
+                      });
+                    },
+                  ),
+              ],
             ),
-          if (widget.comment.mode == CommentMode.edit)
-            CommentForm(
-              comment: widget.comment,
-              post: widget.post,
-              forum: widget.forum,
-              onSuccess: widget.onCommentEditSuccess,
-            ),
-          if (canCancel)
-            IconButton(
-              icon: Icon(Icons.close, color: Colors.redAccent),
-              onPressed: () {
-                setState(() {
-                  widget.comment.mode = CommentMode.none;
-                });
-              },
-            ),
-        ],
-      ),
-    );
+          );
   }
 }
