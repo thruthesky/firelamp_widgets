@@ -35,6 +35,7 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   TextEditingController _editingController;
+  FocusNode _focusNode = FocusNode();
 
   String selected = '';
   PublishSubject<String> input = PublishSubject();
@@ -77,6 +78,7 @@ class _SearchBarState extends State<SearchBar> {
                 Flexible(
                   child: TextField(
                     autofocus: false,
+                    focusNode: _focusNode,
                     controller: _editingController,
                     onChanged: widget.searchOnInputChange
                         ? (value) => input.add(value)
@@ -91,6 +93,7 @@ class _SearchBarState extends State<SearchBar> {
                       suffixIcon: IconButton(
                         icon: Icon(Icons.search),
                         onPressed: () {
+                          _focusNode.unfocus();
                           widget.onSearch(searchKey);
                         },
                       ),
