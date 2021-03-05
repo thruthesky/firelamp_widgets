@@ -36,7 +36,7 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   TextEditingController _editingController;
 
-  String selected;
+  String selected = '';
   PublishSubject<String> input = PublishSubject();
   StreamSubscription subscription;
   String searchKey;
@@ -44,7 +44,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   void initState() {
     super.initState();
-    
+
     _editingController = TextEditingController(text: widget.defaultSearchKeyValue);
     subscription =
         input.debounceTime(Duration(milliseconds: 500)).distinct((a, b) => a == b).listen((value) {
@@ -101,7 +101,7 @@ class _SearchBarState extends State<SearchBar> {
                   margin: EdgeInsets.only(left: Space.xsm),
                   constraints: BoxConstraints(minWidth: 50),
                   child: Text(
-                    '${widget.defaultCategoryValue.isNotEmpty ? widget.defaultCategoryValue : selected ?? widget.categories.split(',').first}',
+                    '${selected.isNotEmpty ? selected : widget.defaultCategoryValue.isNotEmpty ? widget.defaultCategoryValue : widget.categories.split(',').first}',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
