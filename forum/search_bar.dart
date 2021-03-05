@@ -13,7 +13,8 @@ class SearchBar extends StatefulWidget {
     @required this.onCategoryChange,
     @required this.onSearch,
     @required this.onCancel,
-    this.defaultValue = '',
+    this.defaultCategoryValue = '',
+    this.defaultSearchKeyValue = '',
     this.searchOnInputChange = true,
   });
   final bool display;
@@ -21,7 +22,8 @@ class SearchBar extends StatefulWidget {
   final Function onCategoryChange;
   final Function onSearch;
   final Function onCancel;
-  final String defaultValue;
+  final String defaultCategoryValue;
+  final String defaultSearchKeyValue;
 
   /// When `true`, search will work everytime the text input changes.
   /// If `false`, the user must click the search icon button to search.
@@ -32,6 +34,8 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
+  TextEditingController _editingController;
+
   String selected;
   PublishSubject<String> input = PublishSubject();
   StreamSubscription subscription;
@@ -40,6 +44,8 @@ class _SearchBarState extends State<SearchBar> {
   @override
   void initState() {
     super.initState();
+    
+    _editingController = TextEditingController(text: widget.defaultSearchKeyValue);
     subscription =
         input.debounceTime(Duration(milliseconds: 500)).distinct((a, b) => a == b).listen((value) {
       searchKey = value;
@@ -71,6 +77,7 @@ class _SearchBarState extends State<SearchBar> {
                 Flexible(
                   child: TextField(
                     autofocus: false,
+                    controller: _editingController,
                     onChanged: widget.searchOnInputChange
                         ? (value) => input.add(value)
                         : (value) => searchKey = value,
@@ -94,7 +101,7 @@ class _SearchBarState extends State<SearchBar> {
                   margin: EdgeInsets.only(left: Space.xsm),
                   constraints: BoxConstraints(minWidth: 50),
                   child: Text(
-                    '${widget.defaultValue.isNotEmpty ? widget.defaultValue : selected ?? widget.categories.split(',').first}',
+                    '${widget.defaultCategoryValue.isNotEmpty ? widget.defaultCategoryValue : selected ?? widget.categories.split(',').first}',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
