@@ -27,7 +27,7 @@ class _VoteButtonState extends State<VoteButton> {
           // - setstate to re-render
           // print('TODO: VOTE');
           try {
-            final ret = Api.instance.postVote(widget.postOrComment.idx, widget.isLike ? 'Y' : 'N');
+            final ret = Api.instance.vote(widget.postOrComment.idx, widget.isLike ? 'Y' : 'N');
             print("Vote result ====>> $ret");
           } catch (e) {
             if (widget.onError != null) widget.onError(e);
