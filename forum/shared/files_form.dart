@@ -7,7 +7,7 @@ import 'package:dalgona/firelamp_widgets/defines.dart';
 class FilesForm extends StatefulWidget {
   const FilesForm({Key key, this.postOrComment, this.onError}) : super(key: key);
 
-  final dynamic postOrComment;
+  final postOrComment;
   final Function onError;
 
   @override
