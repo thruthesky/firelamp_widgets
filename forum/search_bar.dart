@@ -80,6 +80,8 @@ class _SearchBarState extends State<SearchBar> {
                     autofocus: false,
                     focusNode: _focusNode,
                     controller: _editingController,
+                    textInputAction: TextInputAction.go,
+                    onSubmitted: (value) => input.add(value),
                     onChanged: widget.searchOnInputChange
                         ? (value) => input.add(value)
                         : (value) => searchKey = value,
