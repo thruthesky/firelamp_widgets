@@ -33,7 +33,7 @@ class PostMeta extends StatelessWidget {
       child: Row(
         children: [
           if (showAvatar) ...[
-            UserAvatar(post.profilePhotoUrl, size: 40),
+            UserAvatar(post.user.photoUrl, size: 40),
             SizedBox(width: Space.sm),
           ],
           if (post.display)
