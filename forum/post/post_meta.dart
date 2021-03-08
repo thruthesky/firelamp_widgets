@@ -16,7 +16,7 @@ class PostMeta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget name = Text(
-      '${post.display ? post.authorName : post.displayName}',
+      'author name',
       style: TextStyle(fontWeight: FontWeight.w500, fontSize: Space.sm),
     );
 
