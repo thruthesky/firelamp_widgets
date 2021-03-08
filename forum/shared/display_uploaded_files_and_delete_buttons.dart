@@ -4,17 +4,20 @@ import 'package:firelamp/firelamp.dart';
 
 import 'package:dalgona/firelamp_widgets/defines.dart';
 
-class FilesForm extends StatefulWidget {
-  const FilesForm({Key key, this.postOrComment, this.onError}) : super(key: key);
+class DisplayUploadedFilesAndDeleteButtons extends StatefulWidget {
+  const DisplayUploadedFilesAndDeleteButtons({Key key, this.postOrComment, this.onError})
+      : super(key: key);
 
   final postOrComment;
   final Function onError;
 
   @override
-  _FilesFormState createState() => _FilesFormState();
+  _DisplayUploadedFilesAndDeleteButtonsState createState() =>
+      _DisplayUploadedFilesAndDeleteButtonsState();
 }
 
-class _FilesFormState extends State<FilesForm> {
+class _DisplayUploadedFilesAndDeleteButtonsState
+    extends State<DisplayUploadedFilesAndDeleteButtons> {
   @override
   Widget build(BuildContext context) {
     if (widget.postOrComment == null || widget.postOrComment.files.length == 0)
@@ -63,7 +66,7 @@ class _FilesFormState extends State<FilesForm> {
                         if (re) {
                           try {
                             await Api.instance.deleteFile(
-                              file.id,
+                              file.idx,
                               postOrComment: widget.postOrComment,
                             );
                             setState(() => null);

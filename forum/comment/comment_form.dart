@@ -1,4 +1,4 @@
-import 'package:dalgona/firelamp_widgets/forum/shared/files_form.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/display_uploaded_files_and_delete_buttons.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:dalgona/firelamp_widgets/functions.dart';
 import 'package:dalgona/firelamp_widgets/widgets/spinner.dart';
@@ -150,7 +150,7 @@ class _CommentFormState extends State<CommentForm> {
                 )
             ],
           ),
-          FilesForm(postOrComment: comment),
+          DisplayUploadedFilesAndDeleteButtons(postOrComment: comment),
         ],
       ),
     );

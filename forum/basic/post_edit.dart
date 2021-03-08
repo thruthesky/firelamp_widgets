@@ -158,7 +158,7 @@ class _ForumBasicPostEditState extends State<ForumBasicPostEdit> {
                           onPressed: () async {
                             // print('delete: ${file.id}');
                             try {
-                              await Api.instance.deleteFile(file.id, postOrComment: post);
+                              await Api.instance.deleteFile(file.idx, postOrComment: post);
                               // print('delete: success');
                               setState(() {});
                             } catch (e) {

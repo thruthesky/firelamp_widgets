@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 
 import 'package:dalgona/firelamp_widgets/defines.dart';
-import 'package:dalgona/firelamp_widgets/forum/shared/files_form.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/display_uploaded_files_and_delete_buttons.dart';
 
 class PostForm extends StatefulWidget {
   PostForm(this.forum, {this.onError});
@@ -119,7 +119,7 @@ class _PostFormState extends State<PostForm> {
               maxLines: 15,
               decoration: _inputDecoration,
             ),
-            FilesForm(postOrComment: forum.postInEdit),
+            DisplayUploadedFilesAndDeleteButtons(postOrComment: forum.postInEdit),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
