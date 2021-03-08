@@ -45,7 +45,7 @@ class PostPreview extends StatelessWidget {
                 Positioned(
                   left: 10,
                   top: -15,
-                  child: UserAvatar(post.profilePhotoUrl, size: 40),
+                  child: UserAvatar(post.user.photoUrl, size: 40),
                 ),
               ],
             ),
@@ -54,7 +54,7 @@ class PostPreview extends StatelessWidget {
               constraints: BoxConstraints(minWidth: 70),
               child: Column(
                 children: [
-                  UserAvatar(post.profilePhotoUrl),
+                  UserAvatar(post.user.photoUrl),
                   SizedBox(height: Space.xxs),
                   Text('${post.displayName}')
                 ],
