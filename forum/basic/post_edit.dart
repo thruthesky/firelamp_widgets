@@ -44,7 +44,7 @@ class _ForumBasicPostEditState extends State<ForumBasicPostEdit> {
   @override
   void initState() {
     super.initState();
-    post = ApiPost(categoryIdx: widget.category);
+    post = ApiPost(categoryId: widget.category);
   }
 
   bool get canSubmit {
