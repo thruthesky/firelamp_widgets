@@ -71,8 +71,8 @@ class _CommentFormState extends State<CommentForm> {
       final editedComment = await Api.instance.commentEdit(
         idx: comment?.idx,
         content: content.text,
-        rootIdx: widget.post.idx.toString(),
-        parentIdx: widget.parent != null ? widget.parent.idx.toString() : widget.post.idx.toString(),
+        rootIdx: widget.post.idx,
+        parentIdx: widget.parent != null ? widget.parent.idx : widget.post.idx,
         comment: comment,
         files: comment.files,
       );
