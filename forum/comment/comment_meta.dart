@@ -13,7 +13,7 @@ class CommentMeta extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'author name',
+            comment.user.name,
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: Space.sm,

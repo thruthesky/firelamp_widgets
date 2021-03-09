@@ -64,7 +64,8 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return widget.display == false
         ? SizedBox.shrink()
-        : Padding(
+        : Container(
+            color: Colors.grey[200],
             padding: EdgeInsets.only(top: Space.xs, bottom: Space.xs),
             child: Row(
               children: [
