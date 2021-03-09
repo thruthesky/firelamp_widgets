@@ -100,9 +100,19 @@ class _CommentViewState extends State<CommentView> {
                         });
                       },
                     ),
-                    if (widget.forum.showLike) VoteButton(postOrComment: widget.comment),
+                    if (widget.forum.showLike)
+                      VoteButton(
+                        postOrComment: widget.comment,
+                        onChange: () => setState(() => null),
+                        onError: widget.onError,
+                      ),
                     if (widget.forum.showDislike)
-                      VoteButton(postOrComment: widget.comment, isLike: false),
+                      VoteButton(
+                        postOrComment: widget.comment,
+                        isLike: false,
+                        onChange: () => setState(() => null),
+                        onError: widget.onError,
+                      ),
                     Spacer(),
                     if (widget.comment.isMine)
                       PopUpButton(items: [

@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class VoteButton extends StatelessWidget {
-  VoteButton({@required this.postOrComment, this.isLike = true, this.onChange});
+  VoteButton({@required this.postOrComment, this.isLike = true, this.onChange, this.onError});
 
   final bool isLike;
   final dynamic postOrComment;
   final Function onChange;
+  final Function onError;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +26,14 @@ class VoteButton extends StatelessWidget {
       child: TextButton(
         child: Text(text),
         onPressed: () async {
-          final re = await api.vote(postOrComment, choice);
-          postOrComment.y = re.y;
-          postOrComment.n = re.n;
-          onChange();
+          try {
+            final re = await api.vote(postOrComment, choice);
+            postOrComment.y = re.y;
+            postOrComment.n = re.n;
+            if (onChange != null) onChange();
+          } catch (e) {
+            if (onError != null) onError(e);
+          }
         },
       ),
     );
