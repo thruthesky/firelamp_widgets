@@ -1,29 +1,34 @@
+import 'package:dalgona/services/globals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class VoteButton extends StatefulWidget {
+class VoteButton extends StatelessWidget {
+  VoteButton({@required this.postOrComment, this.isLike = true, this.onChange});
+
   final bool isLike;
   final dynamic postOrComment;
+  final Function onChange;
 
-  VoteButton({@required this.postOrComment, this.isLike = true});
-
-  @override
-  _VoteButtonState createState() => _VoteButtonState();
-}
-
-class _VoteButtonState extends State<VoteButton> {
   @override
   Widget build(BuildContext context) {
+    String choice;
+    String text;
+    if (isLike) {
+      choice = 'Y';
+      text = "Like" + (postOrComment.y > 0 ? "(${postOrComment.y})" : "");
+    } else {
+      choice = 'N';
+      text = "Dislike" + (postOrComment.n > 0 ? "(${postOrComment.n})" : "");
+    }
+
     return Container(
       child: TextButton(
-        // TODO: show vote count.
-        child: Text('${widget.isLike ? 'Like' : 'Dislike'}'),
-        onPressed: () {
-          // TODO: VOTE
-          // - call to API
-          // - update post or comment vote count
-          // - setstate to re-render
-          // print('TODO: VOTE');
+        child: Text(text),
+        onPressed: () async {
+          final re = await api.vote(postOrComment, choice);
+          postOrComment.y = re.y;
+          postOrComment.n = re.n;
+          onChange();
         },
       ),
     );

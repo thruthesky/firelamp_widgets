@@ -52,7 +52,7 @@ class _CommentViewState extends State<CommentView> {
       if (conf == false) return;
 
       try {
-        await Api.instance.deleteComment(widget.comment, widget.post);
+        await Api.instance.commentDelete(widget.comment, widget.post);
         if (widget.onCommentDeleteSuccess != null) widget.onCommentDeleteSuccess();
         widget.forum.render();
       } catch (e) {
