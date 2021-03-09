@@ -56,7 +56,7 @@ class PostPreview extends StatelessWidget {
                 children: [
                   UserAvatar(post.user.photoUrl),
                   SizedBox(height: Space.xxs),
-                  Text('${post.displayName}')
+                  Text('${post.shortAuthorName}')
                 ],
               ),
             ),
