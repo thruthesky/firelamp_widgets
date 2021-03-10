@@ -24,6 +24,7 @@ class PostViewWithThumbnailAndAvatar extends StatefulWidget {
   final ApiForum forum;
   final bool titleFirst;
   final ApiPost post;
+  
   final List<Widget> actions;
   final Function onTitleTap;
   final Function onError;

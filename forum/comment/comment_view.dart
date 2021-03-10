@@ -1,6 +1,6 @@
 import 'package:dalgona/firelamp_widgets/forum/comment/comment_content.dart';
 import 'package:dalgona/firelamp_widgets/widgets/popup_button.dart';
-import 'package:dalgona/firelamp_widgets/forum/shared/vote_button.dart';
+import 'package:dalgona/firelamp_widgets/forum/shared/vote_buttons.dart';
 import 'package:dalgona/firelamp_widgets/widgets/rounded_box.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
@@ -100,19 +100,12 @@ class _CommentViewState extends State<CommentView> {
                         });
                       },
                     ),
-                    if (widget.forum.showLike)
-                      VoteButton(
-                        postOrComment: widget.comment,
-                        onChange: () => setState(() => null),
-                        onError: widget.onError,
-                      ),
-                    if (widget.forum.showDislike)
-                      VoteButton(
-                        postOrComment: widget.comment,
-                        isLike: false,
-                        onChange: () => setState(() => null),
-                        onError: widget.onError,
-                      ),
+                    VoteButtons(
+                      postOrComment: widget.comment,
+                      showLike: widget.forum.showLike,
+                      showDislike: widget.forum.showDislike,
+                      onError: widget.onError,
+                    ),
                     Spacer(),
                     if (widget.comment.isMine)
                       PopUpButton(items: [
