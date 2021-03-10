@@ -88,10 +88,11 @@ class _CommentViewState extends State<CommentView> {
                     widget.comment.mode == CommentMode.reply) ...[
                   CommentContent(widget.comment),
                   FilesView(postOrComment: widget.comment),
-                  Divider(),
+                  Divider(height: Space.xs),
                   Row(children: [
-                    TextButton(
-                      child: Text(widget.comment.mode == CommentMode.reply ? 'Cancel' : 'Reply'),
+                    IconButton(
+                      // child: Text(widget.comment.mode == CommentMode.reply ? 'Cancel' : 'Reply'),
+                      icon: Icon(widget.comment.mode == CommentMode.reply ? Icons.close : Icons.reply_rounded),
                       onPressed: () {
                         setState(() {
                           widget.comment.mode = widget.comment.mode == CommentMode.reply
@@ -141,15 +142,15 @@ class _CommentViewState extends State<CommentView> {
                     forum: widget.forum,
                     onSuccess: widget.onCommentEditSuccess,
                   ),
-                if (canCancel)
-                  IconButton(
-                    icon: Icon(Icons.close, color: Colors.redAccent),
-                    onPressed: () {
-                      setState(() {
-                        widget.comment.mode = CommentMode.none;
-                      });
-                    },
-                  ),
+                // if (canCancel)
+                //   IconButton(
+                //     icon: Icon(Icons.close, color: Colors.redAccent),
+                //     onPressed: () {
+                //       setState(() {
+                //         widget.comment.mode = CommentMode.none;
+                //       });
+                //     },
+                //   ),
               ],
             ),
           );

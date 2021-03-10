@@ -6,8 +6,9 @@ import 'package:firelamp/firelamp.dart';
 import 'package:flutter/material.dart';
 
 class PostPreview extends StatelessWidget {
-  PostPreview(this.post, {this.onTap});
+  PostPreview(this.post, this.forum, {this.onTap});
   final ApiPost post;
+  final ApiForum forum;
   final Function onTap;
 
   String get commentLine {
@@ -20,11 +21,6 @@ class PostPreview extends StatelessWidget {
             : t;
   }
 
-  /// TODO: MODE TO API
-  bool get hasFiles {
-    return post.files.isNotEmpty;
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,7 +29,7 @@ class PostPreview extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          if (hasFiles)
+          if (post.hasFiles)
             Stack(
               overflow: Overflow.visible,
               children: [
@@ -49,13 +45,13 @@ class PostPreview extends StatelessWidget {
                 ),
               ],
             ),
-          if (!hasFiles)
+          if (!post.hasFiles)
             Container(
               constraints: BoxConstraints(minWidth: 70),
               child: Column(
                 children: [
-                  UserAvatar(post.user.photoUrl),
-                  SizedBox(height: Space.xxs),
+                  UserAvatar(post.user.photoUrl, size: 55),
+                  SizedBox(height: Space.xs),
                   Text('${post.user.name}')
                 ],
               ),
@@ -79,7 +75,27 @@ class PostPreview extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: Space.xxs),
-                Text('$commentLine', style: styleHintText)
+                Row(
+                  children: [
+                    if (post.comments.isNotEmpty) ...[
+                      Icon(Icons.chat_bubble_outlined, size: Space.sm, color: Colors.grey[400]),
+                      SizedBox(width: Space.xs),
+                      Text('${post.comments.length}'),
+                      SizedBox(width: Space.sm),
+                    ],
+                    if (forum.showLike && post.y > 0) ...[
+                      Icon(Icons.thumb_up_rounded, size: Space.sm, color: Colors.grey[400]),
+                      SizedBox(width: Space.xs),
+                      Text('${post.y}'),
+                      SizedBox(width: Space.sm),
+                    ],
+                    if (forum.showDislike && post.n > 0) ...[
+                      Icon(Icons.thumb_down_rounded, size: Space.sm, color: Colors.grey[400]),
+                      SizedBox(width: Space.xs),
+                      Text('${post.n}')
+                    ]
+                  ],
+                ),
               ],
             ),
           ),

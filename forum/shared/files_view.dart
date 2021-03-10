@@ -24,10 +24,11 @@ class FilesView extends StatelessWidget {
         ),
         Divider(),
         GridView.count(
+          padding: EdgeInsets.all(0),
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           crossAxisCount: 3,
-          mainAxisSpacing: 8.0,
+          mainAxisSpacing: 5.0,
           crossAxisSpacing: 8.0,
           children: [
             for (ApiFile file in postOrComment.files)
@@ -37,7 +38,7 @@ class FilesView extends StatelessWidget {
               ),
           ],
         ),
-        SizedBox(height: Space.md),
+        // SizedBox(height: Space.md),
       ],
     );
   }

@@ -111,7 +111,6 @@ class _CommentFormState extends State<CommentForm> {
     return Container(
       child: Column(
         children: [
-          SafeArea(child: SizedBox(height: Space.xs)),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
