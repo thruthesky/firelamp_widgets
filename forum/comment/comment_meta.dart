@@ -27,7 +27,7 @@ class CommentMeta extends StatelessWidget {
                 color: Colors.blueAccent,
               ),
               SizedBox(width: Space.xs),
-              Text('${comment.createdAt}'),
+              Text(comment.shortDateTime),
             ],
           ),
         ],
