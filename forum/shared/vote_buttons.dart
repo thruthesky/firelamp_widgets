@@ -36,25 +36,25 @@ class _VoteButtonsState extends State<VoteButtons> {
         ? Container(
             child: Row(
             children: [
+              if (widget.showLike)
               TextButton(
                 child: Text(likeText),
                 onPressed: () async {
                   try {
                     final re = await api.vote(widget.postOrComment, 'Y');
                     onVoteSuccess(re);
-                    // if (widget.onChange != null) widget.onChange();
                   } catch (e) {
                     if (widget.onError != null) widget.onError(e);
                   }
                 },
               ),
+              if (widget.showDislike)
               TextButton(
                 child: Text(dislikeText),
                 onPressed: () async {
                   try {
                     final re = await api.vote(widget.postOrComment, 'N');
                     onVoteSuccess(re);
-                    // if (widget.onChange != null) widget.onChange();
                   } catch (e) {
                     if (widget.onError != null) widget.onError(e);
                   }
