@@ -11,15 +11,15 @@ class PostPreview extends StatelessWidget {
   final ApiForum forum;
   final Function onTap;
 
-  String get commentLine {
-    final commentCount = post.comments.length;
-    final t = '$commentCount comment';
-    return commentCount == 0
-        ? 'No comments yet ...'
-        : commentCount > 1
-            ? t + 's'
-            : t;
-  }
+  // String get commentLine {
+  //   final commentCount = post.comments.length;
+  //   final t = '$commentCount comment';
+  //   return commentCount == 0
+  //       ? 'No comments yet ...'
+  //       : commentCount > 1
+  //           ? t + 's'
+  //           : t;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +33,13 @@ class PostPreview extends StatelessWidget {
             Stack(
               overflow: Overflow.visible,
               children: [
-                CachedImage(
-                  post.files[0].url,
-                  width: 100,
-                  height: 80,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: CachedImage(
+                    post.files[0].url,
+                    width: 100,
+                    height: 80,
+                  ),
                 ),
                 Positioned(
                   left: 10,
@@ -77,6 +80,7 @@ class PostPreview extends StatelessWidget {
                 SizedBox(height: Space.xxs),
                 Row(
                   children: [
+                    if (post.comments.isEmpty) Text('No comments yet ..', style: TextStyle(fontSize: Space.xsm),),
                     if (post.comments.isNotEmpty) ...[
                       Icon(Icons.chat_bubble_outlined, size: Space.sm, color: Colors.grey[400]),
                       SizedBox(width: Space.xs),

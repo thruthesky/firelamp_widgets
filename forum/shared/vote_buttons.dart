@@ -38,7 +38,7 @@ class _VoteButtonsState extends State<VoteButtons> {
             child: Row(
             children: [
               if (widget.showLike)
-                FlatButton(
+                TextButton(
                   child: Row(
                     children: [
                       Icon(Icons.thumb_up_alt_outlined, color: Colors.greenAccent),
@@ -46,7 +46,7 @@ class _VoteButtonsState extends State<VoteButtons> {
                         SizedBox(width: Space.xs),
                         Text(
                           '${widget.postOrComment.y}',
-                          style: TextStyle(fontSize: Space.sm),
+                          style: TextStyle(fontSize: Space.sm, color: Colors.black54),
                         )
                       ],
                     ],
@@ -61,7 +61,7 @@ class _VoteButtonsState extends State<VoteButtons> {
                   },
                 ),
               if (widget.showDislike)
-                FlatButton(
+                TextButton(
                   child: Row(
                     children: [
                       Icon(Icons.thumb_down_outlined, color: Colors.redAccent),
@@ -69,7 +69,7 @@ class _VoteButtonsState extends State<VoteButtons> {
                         SizedBox(width: Space.xs),
                         Text(
                           '${widget.postOrComment.n}',
-                          style: TextStyle(fontSize: Space.sm),
+                          style: TextStyle(fontSize: Space.sm, color: Colors.black54),
                         )
                       ],
                     ],

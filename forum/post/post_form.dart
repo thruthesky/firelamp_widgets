@@ -8,9 +8,10 @@ import 'package:dalgona/firelamp_widgets/defines.dart';
 import 'package:dalgona/firelamp_widgets/forum/shared/display_uploaded_files_and_delete_buttons.dart';
 
 class PostForm extends StatefulWidget {
-  PostForm(this.forum, {this.onError});
+  PostForm(this.forum, {this.onSuccess, this.onError});
 
   final ApiForum forum;
+  final Function onSuccess;
   final Function onError;
 
   @override
@@ -65,9 +66,12 @@ class _PostFormState extends State<PostForm> {
         content: content.text,
         files: post.files,
       );
-      editedPost.display = true;
+      if (widget.forum.postView != 'slide') {
+        editedPost.display = true;
+      }
       widget.forum.insertOrUpdatePost(editedPost);
       setState(() => loading = false);
+      if (widget.onSuccess != null) widget.onSuccess(editedPost);
       // reset();
     } catch (e) {
       setState(() => loading = false);
