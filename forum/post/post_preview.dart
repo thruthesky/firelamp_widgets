@@ -80,7 +80,10 @@ class PostPreview extends StatelessWidget {
                 SizedBox(height: Space.xxs),
                 Row(
                   children: [
-                    if (post.comments.isEmpty) Text('No comments yet ..', style: TextStyle(fontSize: Space.xsm),),
+                    if (post.comments.isEmpty) ...[
+                      Text('No comments yet ..', style: TextStyle(fontSize: Space.xsm)),
+                      SizedBox(width: Space.sm),
+                    ],
                     if (post.comments.isNotEmpty) ...[
                       Icon(Icons.chat_bubble_outlined, size: Space.sm, color: Colors.grey[400]),
                       SizedBox(width: Space.xs),
