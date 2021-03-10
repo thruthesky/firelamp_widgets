@@ -80,7 +80,7 @@ class _CommentViewState extends State<CommentView> {
                 Row(
                   children: [
                     UserAvatar(widget.comment.user.photoUrl, size: 40),
-                    SizedBox(width: Space.xs),
+                    SizedBox(width: Space.sm),
                     CommentMeta(widget.comment),
                   ],
                 ),
