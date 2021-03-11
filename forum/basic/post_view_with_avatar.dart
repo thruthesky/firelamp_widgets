@@ -66,7 +66,7 @@ class DisplayContent extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(Space.sm),
             width: double.infinity,
-            color: Colors.grey[100],
+            // color: Colors.grey[100],
             child: Text(post.content),
           ),
         ],

@@ -16,6 +16,7 @@ class SearchBar extends StatefulWidget {
     this.defaultCategoryValue = '',
     this.defaultSearchKeyValue = '',
     this.searchOnInputChange = true,
+    this.backgroundColor = const Color(0xffebf0f7),
   });
   final bool display;
   final String categories;
@@ -24,6 +25,7 @@ class SearchBar extends StatefulWidget {
   final Function onCancel;
   final String defaultCategoryValue;
   final String defaultSearchKeyValue;
+  final Color backgroundColor;
 
   /// When `true`, search will work everytime the text input changes.
   /// If `false`, the user must click the search icon button to search.
@@ -65,7 +67,7 @@ class _SearchBarState extends State<SearchBar> {
     return widget.display == false
         ? SizedBox.shrink()
         : Container(
-            color: Colors.grey[200],
+            color: widget.backgroundColor,
             padding: EdgeInsets.only(top: Space.xs, bottom: Space.xs),
             child: Row(
               children: [

@@ -6,10 +6,11 @@ import 'package:firelamp/firelamp.dart';
 import 'package:flutter/material.dart';
 
 class PostPreview extends StatelessWidget {
-  PostPreview(this.post, this.forum, {this.onTap});
+  PostPreview(this.post, this.forum, {this.onTap, this.iconColor = const Color(0xffbadbd8)});
   final ApiPost post;
   final ApiForum forum;
   final Function onTap;
+  final Color iconColor;
 
   // String get commentLine {
   //   final commentCount = post.comments.length;
@@ -85,19 +86,19 @@ class PostPreview extends StatelessWidget {
                       SizedBox(width: Space.sm),
                     ],
                     if (post.comments.isNotEmpty) ...[
-                      Icon(Icons.chat_bubble_outlined, size: Space.sm, color: Colors.grey[400]),
+                      Icon(Icons.chat_bubble_outlined, size: Space.sm, color: iconColor),
                       SizedBox(width: Space.xs),
                       Text('${post.comments.length}'),
                       SizedBox(width: Space.sm),
                     ],
                     if (forum.showLike && post.y > 0) ...[
-                      Icon(Icons.thumb_up_rounded, size: Space.sm, color: Colors.grey[400]),
+                      Icon(Icons.thumb_up_rounded, size: Space.sm, color: iconColor),
                       SizedBox(width: Space.xs),
                       Text('${post.y}'),
                       SizedBox(width: Space.sm),
                     ],
                     if (forum.showDislike && post.n > 0) ...[
-                      Icon(Icons.thumb_down_rounded, size: Space.sm, color: Colors.grey[400]),
+                      Icon(Icons.thumb_down_rounded, size: Space.sm, color: iconColor),
                       SizedBox(width: Space.xs),
                       Text('${post.n}')
                     ]

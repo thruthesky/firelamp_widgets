@@ -71,9 +71,9 @@ class _CommentViewState extends State<CommentView> {
     return widget.comment.isDeleted
         ? SizedBox.shrink()
         : RoundedBox(
-            padding: EdgeInsets.all(Space.sm),
+            padding: EdgeInsets.all(Space.xsm),
             margin: EdgeInsets.only(top: Space.sm, left: Space.sm * (widget.comment.depth - 1)),
-            boxColor: Colors.grey[200],
+            boxColor: Colors.grey[100],
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -92,7 +92,7 @@ class _CommentViewState extends State<CommentView> {
                   Row(children: [
                     IconButton(
                       // child: Text(widget.comment.mode == CommentMode.reply ? 'Cancel' : 'Reply'),
-                      icon: Icon(widget.comment.mode == CommentMode.reply ? Icons.close : Icons.reply_rounded),
+                      icon: Icon(widget.comment.mode == CommentMode.reply ? Icons.close : Icons.reply_rounded, size: 20),
                       onPressed: () {
                         setState(() {
                           widget.comment.mode = widget.comment.mode == CommentMode.reply
