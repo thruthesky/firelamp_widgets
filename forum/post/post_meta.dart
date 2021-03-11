@@ -4,10 +4,15 @@ import 'package:firelamp/firelamp.dart';
 import 'package:flutter/material.dart';
 
 class PostMeta extends StatelessWidget {
-  PostMeta(this.post, {this.showAvatar = false});
+  PostMeta(
+    this.post, {
+    this.showAvatar = false,
+    this.isInlineName = false,
+  });
 
   final ApiPost post;
   final bool showAvatar;
+  final bool isInlineName;
 
   bool get showName {
     return post.files.isNotEmpty;
@@ -27,6 +32,7 @@ class PostMeta extends StatelessWidget {
       SizedBox(width: Space.xs),
       Text('${post.categoryIdx}', style: TextStyle(fontSize: Space.xsm)),
       SizedBox(width: Space.xs),
+      // Text('${post.display}', style: TextStyle(fontSize: Space.xsm)),
     ];
 
     return Container(
@@ -36,12 +42,12 @@ class PostMeta extends StatelessWidget {
             UserAvatar(post.user.photoUrl, size: 40),
             SizedBox(width: Space.sm),
           ],
-          if (post.display)
+          if (isInlineName || post.display)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [name, SizedBox(height: Space.xxs), Row(children: otherMeta)],
             ),
-          if (post.display == false)
+          if (isInlineName == false && post.display == false)
             Row(
               children: [
                 if (showName) ...[

@@ -92,7 +92,11 @@ class _CommentViewState extends State<CommentView> {
                   Row(children: [
                     IconButton(
                       // child: Text(widget.comment.mode == CommentMode.reply ? 'Cancel' : 'Reply'),
-                      icon: Icon(widget.comment.mode == CommentMode.reply ? Icons.close : Icons.reply_rounded, size: 20),
+                      icon: Icon(
+                          widget.comment.mode == CommentMode.reply
+                              ? Icons.close
+                              : Icons.reply_rounded,
+                          size: 20),
                       onPressed: () {
                         setState(() {
                           widget.comment.mode = widget.comment.mode == CommentMode.reply

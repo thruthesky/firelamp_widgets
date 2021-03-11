@@ -47,7 +47,7 @@ class _PostViewWithThumbnailAndAvatarState extends State<PostViewWithThumbnailAn
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: widget.onTitleTap,
-                child: PostMeta(widget.post),
+                child: PostMeta(widget.post, showAvatar: true, isInlineName: widget.open),
               ),
               SizedBox(height: Space.sm),
               Text('${widget.post.title}', style: stylePostTitle),
