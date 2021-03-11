@@ -27,7 +27,10 @@ class CommentMeta extends StatelessWidget {
                 color: Colors.blueAccent,
               ),
               SizedBox(width: Space.xs),
-              Text(comment.shortDateTime),
+              Text(
+                comment.shortDateTime,
+                style: TextStyle(fontSize: Space.xsm),
+              ),
             ],
           ),
         ],
