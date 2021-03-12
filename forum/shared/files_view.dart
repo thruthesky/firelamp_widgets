@@ -1,7 +1,9 @@
 import 'package:dalgona/firelamp_widgets/widgets/image.cache.dart';
+import 'package:dalgona/firelamp_widgets/widgets/app_photo_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:firelamp/firelamp.dart';
 import 'package:dalgona/firelamp_widgets/defines.dart';
+import 'package:get/get.dart';
 
 class FilesView extends StatelessWidget {
   const FilesView({
@@ -10,6 +12,11 @@ class FilesView extends StatelessWidget {
   }) : super(key: key);
 
   final dynamic postOrComment;
+
+  onImageTap(int idx) {
+    final i = postOrComment.files.indexWhere((file) => file.idx == idx);
+    Get.dialog(AppPhotoViewer(postOrComment.files, initialIndex: i));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,10 @@ class FilesView extends StatelessWidget {
           children: [
             for (ApiFile file in postOrComment.files)
               ClipRRect(
-                child: CachedImage(file.url),
+                child: GestureDetector(
+                  child: CachedImage(file.url),
+                  onTap: () => onImageTap(file.idx),
+                ),
                 borderRadius: BorderRadius.circular(5.0),
               ),
           ],
