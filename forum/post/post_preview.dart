@@ -12,16 +12,6 @@ class PostPreview extends StatelessWidget {
   final Function onTap;
   final Color iconColor;
 
-  // String get commentLine {
-  //   final commentCount = post.comments.length;
-  //   final t = '$commentCount comment';
-  //   return commentCount == 0
-  //       ? 'No comments yet ...'
-  //       : commentCount > 1
-  //           ? t + 's'
-  //           : t;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

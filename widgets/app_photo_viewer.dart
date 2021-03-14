@@ -26,7 +26,6 @@ class _AppPhotoViewerState extends State<AppPhotoViewer> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +48,6 @@ class _AppPhotoViewerState extends State<AppPhotoViewer> {
                 child: Spinner(valueColor: Colors.white),
               ),
               pageController: _controller,
-              // onPageChanged: onPageChanged,
             ),
           ),
           Container(
