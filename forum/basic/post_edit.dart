@@ -116,11 +116,11 @@ class _ForumBasicPostEditState extends State<ForumBasicPostEdit> {
             ),
             Row(
               children: [
-                RaisedButton(
+                ElevatedButton(
                   onPressed: widget.onCancel,
                   child: Text('취소'),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: canSubmit
                       ? () async {
                           try {

@@ -144,7 +144,7 @@ class _PostFormState extends State<PostForm> {
                 Row(
                   children: [
                     if (!loading)
-                      FlatButton(
+                      TextButton(
                         child: Text(
                           'Cancel',
                           style: TextStyle(
@@ -157,7 +157,7 @@ class _PostFormState extends State<PostForm> {
                         },
                       ),
                     SizedBox(width: Space.xs),
-                    FlatButton(
+                    TextButton(
                       child: loading
                           ? Spinner()
                           : Text('Submit', style: TextStyle(color: Colors.green[300])),
